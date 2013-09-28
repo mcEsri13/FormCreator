@@ -1,0 +1,352 @@
+﻿body
+{
+    font-family: Arial;    
+}
+
+        #sortable { list-style-type: none; margin: 0; padding: 0; width: 500px; }
+        #sortable li { margin: 0 3px 3px 3px; padding-left: 1.5em;  height: 22px; font-family: Tahoma; }
+        #sortable li span { position: absolute; margin-left: -1.3em; }
+        
+        .gridButtons { float:right; margin-top: -2px; height: 10px }
+
+
+.LeftSide 
+{
+    float:left;
+}
+
+.RightSide 
+{
+    padding-left: 20px;
+    float:left;
+}
+
+#ifPageView
+{
+    width: 1200px;
+    height: 800px;
+    
+}
+
+#formExample
+{
+    font-size: 10px;
+}
+
+.section
+{
+        
+}
+
+.RTE
+{
+    width: 100%;  
+    height: 300px;  
+}
+
+
+    .tableStyle
+    {
+        width: 300px;
+        font-family: Tahoma;
+        font-size : 12px;
+        border: 1px solid #cecece;
+        border-collapse:collapse;
+    }
+    
+    .tableStyle td
+    {
+        height: 20px;
+        padding-left: 5px;
+        margin: 0px;
+    }    
+        
+    .tableStyle tr
+    {
+        padding: 0px;
+        margin: 0px;
+    }      
+    
+    .tableStyle td submit
+    {
+        margin-top: 5px;
+    }        
+    
+    .alternating
+    {
+        background-color: #e8e8e8;
+    }
+    
+    .tblFormInfo
+    {
+        font-family:Arial;
+        border-width: 0 0 1px 1px;
+        border-spacing: 0;
+        border-style: solid;        
+    }
+    
+    .tblFormInfo th
+    {
+        padding: 5px;     
+        font-size: 14px;     
+        font-weight: bold;
+        background-color: #CECECE;
+        border-style: solid;
+        border-width: 1px 1px 0 0;
+    }
+    
+    .tblFormInfo td
+    {
+        padding: 5px;        
+        font-size: 10px;      
+        border-style: solid;
+        border-width: 1px 1px 0 0;         
+ 
+ 
+    }        
+    
+    
+    
+    /*****Justin's Syles************************************************/
+    
+    #header {
+    background: #FFF; background-image: url('http://www.esri.com/graphics/logotagline.png'); background-repeat: no-repeat; height: 90px; 
+    text-indent: 190px; padding: 1px 0;
+}
+
+/* Left Side - Editor */
+.LeftSide {
+    margin-left: 15px;
+}
+.LeftSide .LeftSide {
+    margin-left: 0 !important;
+}
+
+/* Form Rendering */
+.RightSide {
+  border: 1px dashed #DEDEDE;
+  float: left;
+  margin-left: 30px;
+  padding: 20px;
+}
+.RightSide:before {
+  content: "Form Rendering";
+  float: left;
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-indent: 10px;
+  width: 100%;
+}
+
+
+/* Form Fields */
+select {
+  border: 1px solid #DEDEDE;
+  margin-left: 10px
+}
+input {
+    font-size: 13px;
+    padding: 3px 5px;
+}
+input[type="submit"] {
+    border: 1px solid #DEDEDE;
+    background: #EDEDED;
+    cursor: pointer;
+    margin: 5px 0;
+}
+input[type="submit"]:hover {
+    background: #DEDEDE;
+}
+
+
+/* Form Elements - Drag and Drop UI */
+.ui-state-default {
+  background: #EDEDED;
+  padding: 5px;
+  position: relative;
+}
+#sortable li span {
+  left: 3px;
+  margin-left: 0;
+  position: absolute;
+  top: 8px;
+}
+.gridButtons {
+  float: right;
+  font-size: 12px;
+  margin-top: -5px;
+  height: 10px;
+  position: relative;
+  width: 170px;
+}
+#sortable li .gridButtons span {
+  left: -18px;
+}
+/*#sortable input[value="Edit"] {
+  background: #00A7C2;
+  color: #FFF;
+}*/
+
+#sortable input[iseditable="True"] {
+  background: #00A7C2;
+  color: #FFF;
+}
+
+#sortable input[iseditable="False"] {
+  background: #CECECE;
+  color: #FFF;
+}
+
+#sortable input[value="Remove"] {
+  background: #A00;
+  color: #FFF;
+}
+
+
+/* Add Field Area */
+#pnlControlList {
+  border: 1px solid #DEDEDE;
+  height: 36px;
+  margin-bottom: 30px;
+}
+
+
+/*dialog-------------------------------*/
+
+h1, h2, h3, p, input, .set, .set span, label {
+  font-family: 'Avenir LT W01 35 Light', Arial, Helvetica, sans-serif;
+}
+
+.ui-dialog {
+  background: #FBFBFB !important;
+  padding: 0 !important;
+  width: 770px !important
+}
+.ui-dialog .ui-dialog-content {
+  background: #FBFBFB;
+  padding: 0 !important;  
+}
+.ui-dialog-titlebar  { 
+	display: none; 
+}
+.ui-dialog .ui-dialog-content  {
+	padding: 0 !Important;
+}
+
+#1of2 {}
+#2of2 {}
+
+#main_1_content_1_rbNo {
+  margin-left: 5px;
+}
+
+span.optional {
+  float: right;
+  font-size: 12px;
+}
+
+
+.header {
+  background: #FFF;
+  border-bottom: 1px solid #DEDEDE;
+  height: 50px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.header h2 {
+  color: #777;
+  float: left;
+  font-size: 40px;
+  margin: 0 0 0 10px;
+}
+.header a {
+  font-size: 25px;
+}
+#closeDialog {
+  color: #777;
+  cursor: pointer;
+  float: right;
+  font-family: 'Avenir LT W01 35 Light', Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  top: 15px;
+  text-decoration: none;
+  right: 20px;
+  position: relative;
+}
+#closeDialog:hover {}
+
+
+table tr td {
+  vertical-align: top;
+}
+table table {
+  margin-bottom: 10px;
+}
+.set {
+	margin: 10px 10px 10px 0;
+}
+.set span {
+	color: #777;
+	font-size: 14px;
+}
+.set input[type=text],
+.set select {
+  border: 1px solid #DEDEDE;
+  color: #777;
+  font-size: 14px;
+  padding: 2px;
+  width: 350px;
+}
+label {
+  color: #777;
+  font-size: 14px;
+  padding: 2px;
+  width: 350px;
+}
+textarea {
+  border: 1px solid #DEDEDE;
+  color: #777;
+  font-size: 14px;
+  min-height: 50px;
+  width: 100%;
+}
+
+
+.fieldContainer {
+  /* margin: 0 auto; */
+  margin: 0 0 0 18px;
+}
+
+.label {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.paging {
+  color: #777777;
+  margin-right: 20px;
+}
+
+
+
+
+.buttonBlue,
+.buttonGray {
+	background-color: #007AC2;
+	border: 0;
+	color: #FFF;
+	cursor: pointer;
+	padding: 5px 10px;
+}
+.buttonGray {
+	background-color: #DEDEDE;
+}
+.bottomButtons {
+	position: absolute; 
+	right: 0; 
+	bottom: 0;
+	margin: 10px;
+}

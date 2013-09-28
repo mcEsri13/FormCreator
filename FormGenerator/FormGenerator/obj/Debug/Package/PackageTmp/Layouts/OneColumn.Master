@@ -1,0 +1,35 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="OneColumn.master.cs" Inherits="FormGenerator.Layouts.OneColumn" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+<%--    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+    <link href="../css/Common.css" rel="stylesheet" type="text/css" />
+    <link href="../css/OneColumn.css" rel="stylesheet" type="text/css" />
+    <link href="../css/Controls.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ibmcognosdemo.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+
+    <script src="../js/FormGenerator.js" type="text/javascript"></script>
+    <script src="../js/ibmcognosdemo.js" type="text/javascript"></script>--%>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <asp:PlaceHolder ID="phHidden" runat="server"></asp:PlaceHolder>
+
+        <asp:PlaceHolder ID="phColumn1" runat="server"></asp:PlaceHolder>
+
+
+
+    </form>
+</body>
+</html>

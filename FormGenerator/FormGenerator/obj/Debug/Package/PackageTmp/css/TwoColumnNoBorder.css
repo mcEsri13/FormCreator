@@ -1,0 +1,51 @@
+﻿    body
+    {
+        font-size: 14px;
+        font-family: Tahoma;
+    }
+    
+    #wrapper
+    {
+        border: 1px solid #000000;
+        margin: auto;
+        max-width: 900px;
+        height: 1000px;
+    }
+    
+    .topSearch
+    {
+        float: right;
+    }
+    
+    .banner
+    {
+        border: 1px solid #000000;
+        padding: 10px;
+        width: 97%;
+        height: 120px;    
+        margin-bottom: 10px;
+        background-color: #CECECE;
+    }
+    
+    .content
+    {
+        padding: 10px;
+        width: 97%;    
+          
+    }
+        
+    .footer
+    {
+        
+    }    
+    
+    .divLeft
+    {
+        float:left;
+    }
+    
+    .divRight
+    {
+        float:left;
+        margin-left: 10px;
+    }    

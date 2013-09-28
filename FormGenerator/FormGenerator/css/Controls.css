@@ -1,0 +1,70 @@
+﻿      
+    .esriInput
+    {
+        font-size: 14px;
+        width: 270px; 
+        height: 28px;  
+        background-color: rgb(255, 255, 255); 
+        border: 1px solid rgb(164, 185, 127);
+        padding-left: 5px;
+        margin-bottom: 5px;
+    }
+
+    
+    .esriDropDown
+    {
+        font-size: 14px;
+        width: 278px; 
+        height: 28px;  
+        background-color: rgb(255, 255, 255); 
+        border: 1px solid rgb(164, 185, 127); 
+        padding-left: 0px;
+        color: rgb(143, 143, 143);
+        margin-bottom: 5px;
+    }    
+    
+    .esriListBox
+    {
+        font-size: 14px;
+        width: 250px; 
+        height: 100px;  
+        background-color: rgb(255, 255, 255); 
+        border: 1px solid rgb(164, 185, 127); 
+        padding-left: 5px;
+        margin-bottom: 5px;
+        font-family: Arial;
+    }    
+    
+    .multiLine
+    {
+        font-size: 14px;
+        width: 265px; 
+        height: 100px;  
+        background-color: rgb(255, 255, 255); 
+        border: 1px solid rgb(164, 185, 127); 
+        padding-left: 5px;
+        margin-bottom: 5px;
+        font-family: Arial;
+    }
+ 
+    .errorMessage
+    {
+        color: #FF8C00;
+        font-weight:bold;
+    }
+    
+    .successMessage
+    {
+        color: rgb(0, 114, 184); 
+        font-weight:bold;
+    }    
+    
+    .errorField
+    {
+        border-width: 0px; 
+        border-color: #A4B97F;
+    }
+    
+    input.watermark { color: rgb(143, 143, 143); }
+    textarea.watermark { color: rgb(143, 143, 143); font-family: Arial, Helvetica, sans-serif; }
+

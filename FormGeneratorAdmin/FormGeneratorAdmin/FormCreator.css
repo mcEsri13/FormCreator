@@ -1,0 +1,72 @@
+﻿#divlogIn
+{
+    
+}
+
+#divCreateOrEdit
+{
+    display:none;
+}
+
+#divCreateForm
+{
+    display:none;
+}
+
+#divPreviewFormInfo
+{
+    display:none;
+}
+
+#divEditForm
+{
+    display:none;
+}
+
+#divControlList
+{
+
+}
+
+#divFormPreview
+{
+
+}
+
+#pnlFields
+{
+    width: 200px;
+    height: 500px;
+    overflow: scroll;
+    border: 1px solid #000000;    
+    
+}
+
+
+#leftpane,
+#rightpane 
+{
+    float: left;
+    width: 50%;
+}
+
+
+#divEditing
+{
+
+}
+
+#testWrapper
+{
+    width: 500px;
+    height: 500px;
+    border: 1px solid #000000;    
+}
+
+#testLeft, #testRight
+{
+    float:left;
+    width: 245px;
+    height: 500px;
+    border: 1px solid #000000;
+}

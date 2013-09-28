@@ -1,0 +1,63 @@
+﻿    body
+    {
+        font-size: 14px;
+        font-family: Tahoma;
+    }
+    
+    #wrapper
+    {
+        border: 1px solid #000000;
+        margin: auto;
+        max-width: 900px;
+        height: 1000px;
+    }
+    
+    .topSearch
+    {
+        float: right;
+    }
+    
+    .banner
+    {
+        border: 1px solid #000000;
+        padding: 10px;
+        width: 97%;
+        height: 120px;    
+        margin-bottom: 10px;
+        background-color: #CECECE;
+    }
+    
+    .content
+    {
+        padding: 10px;
+        width: 97%;    
+          
+    }
+    
+    .SmallSection
+    {
+        float: left;
+        border: 1px solid #000000;
+        width: 400px;
+        height: 300px;
+        padding: 10px;
+        margin-left: 5px;
+        margin-bottom: 10px;
+        text-align: center;  
+    }
+    .LargeSection
+    {
+        float: left;
+        border: 1px solid #000000;
+        width: 97%;
+        height: 300px;
+        padding: 10px;
+        margin-left: 5px;
+        margin-bottom: 10px;
+    }    
+
+        
+    .footer
+    {
+        
+    }    
