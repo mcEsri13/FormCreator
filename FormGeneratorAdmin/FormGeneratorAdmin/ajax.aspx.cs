@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.Services;
 using System.Data;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace FormGeneratorAdmin
 {
@@ -60,11 +61,11 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static void AddElementToContainer(string controlList_ID, string formID, string placeholderID, string formControl_ID, string text)
+        public static string AddElementToContainer(string controlList_ID, string formID, string placeholderName, string formControl_ID, string text)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            data.AddControlToPlaceHolder(controlList_ID, formID, placeholderID, formControl_ID, text);
+            return data.AddControlToPlaceHolder(controlList_ID, formID, placeholderName, formControl_ID, text);
         }
 
         [WebMethod]
@@ -82,20 +83,45 @@ namespace FormGeneratorAdmin
 
             return GetJson( data.GetAprimoInfoByForm_ID(formID));
         }
-
-
+        
         [WebMethod]
-        public static string AddForm(string formName, string sitecoreID)
+        public static string GetAllFormDataByFormID(string formID)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            //DataTable dtResult = data.AddForm(formName, sitecoreID);
+            DataSet ds = data.GetAllFormDataByFormID(formID);
 
-            //string json = GetJson(dtResult);
+            ds.Tables[0].TableName = "formData";
+            ds.Tables[1].TableName = "formContainers";
+            ds.Tables[2].TableName = "formElements";
+            ds.Tables[3].TableName = "formChildElements";
+            ds.Tables[4].TableName = "elementActions";
+            ds.Tables[5].TableName = "formActions";
+            ds.Tables[6].TableName = "elementBehaviors";
 
-            //return GetJson( json;
+            return JsonConvert.SerializeObject(ds, Formatting.Indented);
+        }
 
-            return "[{\"Form_ID\":\"11111\",\"Name\":\"testName\", \"ItemID\":\"{245234-2452345-23534-235435}\",\"ModificationDate\":\"1/1/2014\",\"Tracking_Campaign\":\"1111111\",\"Tracking_Source\":\"2222222\",\"Tracking_Form\":\"3333333\"}]";
+        [WebMethod]
+        public static string GetFormBySitecoreItemID(string itemID)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            data.GetFormBySitecoreItemID(itemID);
+
+            return GetJson(data.GetFormBySitecoreItemID(itemID));
+        }
+
+        [WebMethod]
+        public static string AddForm(string formName, string sitecoreID, string trackingCampaign, string trackingSource, string trackingForm)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            DataTable dtResult = data.AddForm(formName, sitecoreID, trackingCampaign, trackingSource, trackingForm);
+
+            return GetJson(dtResult);
+
+            //return "[{\"Form_ID\":\"11111\",\"Name\":\"testName\", \"ItemID\":\"{245234-2452345-23534-235435}\",\"ModificationDate\":\"1/1/2014\",\"Tracking_Campaign\":\"1111111\",\"Tracking_Source\":\"2222222\",\"Tracking_Form\":\"3333333\"}]";
         }
 
         [WebMethod]

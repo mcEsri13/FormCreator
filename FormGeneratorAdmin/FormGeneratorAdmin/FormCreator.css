@@ -1,72 +1,177 @@
-﻿#divlogIn
+﻿/* GENERAL RULES */
+body
 {
-    
+    font-family:Calibri
 }
-
-#divCreateOrEdit
-{
-    display:none;
-}
-
-#divCreateForm
-{
-    display:none;
-}
-
-#divPreviewFormInfo
-{
-    display:none;
-}
-
-#divEditForm
-{
-    display:none;
-}
-
-#divControlList
-{
-
-}
-
-#divFormPreview
-{
-
-}
-
-#pnlFields
-{
-    width: 200px;
-    height: 500px;
-    overflow: scroll;
-    border: 1px solid #000000;    
-    
-}
-
 
 #leftpane,
-#rightpane 
+#rightpane,
+#pnlFields,
+#divPreviewFormInfo,
+#phColumn1, 
+#phColumn2 {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* LOGIN */
+#divlogIn span {
+    width: 100px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#divlogIn input[type=button] {
+    margin-left: 192px;
+}
+
+#divCreateOrEdit,
+#divCreateForm,
+#divPreviewFormInfo,
+#divEditForm,
+#mCheckboxGroup, 
+#mRadioGroup, 
+#mCustomDropdown, 
+#mSubmit, 
+#divReturnURL
 {
-    float: left;
-    width: 50%;
+    display:none;
+}
+
+#divControlList {}
+
+#divFormPreview {}
+
+#divEditing {}
+
+
+
+/* Left and Right Panes */
+#divEditForm {
+	width: 100%;
+}
+#leftpane, #rightpane {
+	float: left;
+}
+#leftpane {
+	width: 20% !important;
+}
+#rightpane {
+	width: 80% !important;
 }
 
 
-#divEditing
-{
-
+/* Left Panel */
+#pnlFields {
+	border: 1px solid #CCC !important;
+	min-height: 500px;
+	padding-right: 10px;
+	overflow: scroll;
+	width: 90% !important;
+}
+#pnlFields .listItem.ui-draggable {
+	background: #DDD;
+	border-bottom: 1px solid #CCC;
+	display: block;
+	padding: 5px 10px;
+	width: 100%;
 }
 
-#testWrapper
-{
-    width: 500px;
-    height: 500px;
-    border: 1px solid #000000;    
+/* Right Panel - Preview */
+#rightpane #divFormPreview select {
+	margin-bottom: 20px;
+}
+#rightpane #testWrapper {
+	border: 1px solid #CCC !important;
+	height: 100%;
+	min-height: 500px;
+	width: 80%;
+}
+#phColumn1, #phColumn2 {
+	border: 1px solid #CCC !important;
+	float: left;
+	height: 100% !important;
+	min-height: 300px;
+	width: 50% !important;
+}
+#phBottom {
+	border: 1px solid #CCC !important;
+	float: left;
+	height: 100% !important;
+	min-height: 200px;
+	width: 100% !important;
 }
 
-#testLeft, #testRight
+/* Default Button */
+input[type="button"] {
+    background: orange;
+    color: #555;
+    border: 1px solid #CCC;
+    padding: 5px 10px;
+}
+
+/* CREATE FORM */
+#divCreateForm span {
+    width: 160px;
+    display: inline-block;
+    font-size: 16px;
+}
+#divCreateForm input[type="text"] {
+    margin-bottom: 5px;
+}
+#divCreateForm input[type="button"] {
+    margin: 15px 0;
+}
+
+
+
+/* PREVIEW FORM */
+#divPreviewFormInfo {
+	float: left;
+	width: 100%;
+	padding: 20px;
+	margin: 0 0 10px 0;
+	background: #DDD;
+	border-bottom: 1px solid #CCC;
+}
+#divPreviewFormInfo select {
+	margin-bottom: 10px;
+}
+#divPreviewFormInfo span,
+#divPreviewFormInfo div {
+	float: left;
+}
+#divPreviewFormInfo span {
+	width: 170px;
+}
+#divPreviewFormInfo input[type="button"] {
+	margin-top: 20px;
+}
+
+#divEditForm {
+	float: left;
+}
+
+
+
+/* Form Fields */
+select 
 {
-    float:left;
-    width: 245px;
-    height: 500px;
-    border: 1px solid #000000;
+  width: 300px;
+  height: 30px;    
+  border: 1px solid #DEDEDE;
+}
+input {
+    font-size: 13px;
+    padding: 3px 5px;
+}
+input[type="submit"] {
+    border: 1px solid #DEDEDE;
+    background: #EDEDED;
+    cursor: pointer;
+    margin: 5px 0;
+}
+input[type="submit"]:hover {
+    background: #DEDEDE;
 }

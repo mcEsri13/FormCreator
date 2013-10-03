@@ -3,8 +3,10 @@ C:\Users\jose7275\Documents\Visual Studio 2010\Projects\FormGeneratorAdmin\FormG
 C:\Users\jose7275\Documents\Visual Studio 2010\Projects\FormGeneratorAdmin\FormGeneratorAdmin\obj\Debug\FormGeneratorAdmin.dll
 C:\Users\jose7275\Documents\Visual Studio 2010\Projects\FormGeneratorAdmin\FormGeneratorAdmin\obj\Debug\FormGeneratorAdmin.pdb
 C:\Users\jose7275\Documents\Visual Studio 2010\Projects\FormGeneratorAdmin\FormGeneratorAdmin\obj\Debug\FormGeneratorAdmin.csprojResolveAssemblyReference.cache
-C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Debug\FormGeneratorAdmin.csprojResolveAssemblyReference.cache
 C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Debug\FormGeneratorAdmin.dll
 C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\FormGeneratorAdmin.dll
 C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\FormGeneratorAdmin.pdb
 C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Debug\FormGeneratorAdmin.pdb
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\Newtonsoft.Json.dll
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\Newtonsoft.Json.xml
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Debug\FormGeneratorAdmin.csprojResolveAssemblyReference.cache

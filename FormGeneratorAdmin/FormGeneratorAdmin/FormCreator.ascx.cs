@@ -18,7 +18,7 @@ namespace FormGeneratorAdmin
                 FormGeneratorData formData = new FormGeneratorData();
 
                 FormGeneratorTools.BindObject(ddlFormList, formData.GetForms(), "Name", "Form_ID", "Select Form");
-                //FormGeneratorTools.BindObject(ddlControlList, formData.GetControls(), "Name", "Controllist_id", "Select Field");
+                FormGeneratorTools.BindObject(ddlActions, formData.GetControlActionTypes(), "Name", "ControlActionType_ID", "Select Action");
                 FormGeneratorTools.BindObject(ddlLayout, formData.GetTemplates(), "friendlyname", "template_id", "Select Layout");
                 FormGeneratorTools.BindObject(ddlStyle, formData.GetStyles(), "Name", "StyleType_ID", "Select Style");
 
@@ -33,10 +33,8 @@ namespace FormGeneratorAdmin
                     span.Attributes.Add("class", "listItem");
                     span.InnerHtml = fieldRow["Name"].ToString();
 
-                    HtmlGenericControl br = new HtmlGenericControl("br");
 
                     pnlFields.Controls.Add(span);
-                    pnlFields.Controls.Add(br);
 
                     i++;
                 }

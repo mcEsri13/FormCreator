@@ -56,18 +56,62 @@
                 </asp:DropDownList>
                 <asp:DropDownList ID="ddlStyle" runat="server" ClientIDMode="Static">
                 </asp:DropDownList>
+                <input type="button" id="btnSaveFormChanges" value="Save" />
             </div>
             <!--testing drabble jquery-->
-            <div id="testWrapper">
-                <div id="droppable">
-                </div>
-                <div id="testRight">
-                </div>
+
+            <div id='hiddenModalForm' >
             </div>
+
             <!--end testing drabble jquery-->
         </div>
         
         <!--testing drabble jquery-->
-        <input type="button" id="btnSaveFormChanges" value="Save" />
+
     </div>
 </div>
+
+<!--edit modals-->
+    <div id="mCheckboxGroup">
+        <p>Checkbox Edit!</p>
+        <div id="divAddCheckbox">
+            Text<input type="text" id="txtCBText" />
+            Value<input type="text" id="txtCBValue" />
+            <input id="btnAddCheckbox" type="button" value="Add" />
+        </div>
+        <table id="tblCheckboxes">
+            <tr>
+                <th>Text</th>
+                <th>Value</th>
+                <th>Remove</th>
+            </tr>
+        </table><br />
+        <input type="button" class="closeDialog" value="Done" />
+    </div><!--end checkbox group-->
+    <div id="mRadioGroup">
+        <h1>Radio Edit!</h1>
+        <br />
+        <input type="button" class="closeDialog" value="Done" />
+    </div><!--end checkbox group-->
+    <div id="mSubmit">
+        <p>Submit Edit!</p>
+        <asp:DropDownList ID="ddlActions" runat="server" ClientIDMode="Static">
+        </asp:DropDownList>
+        <input id="btnAddAction" type="button" value="Add" /><br />
+        <div id="divReturnURL">
+            return URL
+            <input type="text" id="ecasReturnURL" />
+        </div>
+        <table id="tblActions">
+            <tr>
+                <th>Action</th>
+                <th>Remove</th>
+            </tr>
+        </table><br />
+        <input type="button" class="closeDialog" value="Done" />
+    </div><!--end checkbox group-->
+    <div id="mCustomDropdown">
+        <h1>Dropdown Edit!</h1><br />
+        <input type="button" class="closeDialog" value="Done" />
+    </div><!--end checkbox group-->
+<!--end edit modals-->

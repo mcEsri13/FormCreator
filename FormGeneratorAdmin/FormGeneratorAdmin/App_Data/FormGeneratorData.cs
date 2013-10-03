@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace FormGeneratorAdmin
 {
@@ -13,6 +14,12 @@ namespace FormGeneratorAdmin
     {
         #region Variables
         private SqlConnection con;
+
+        //mark's Code
+        private static string Connection = ConfigurationManager.ConnectionStrings["FormGenerator"].ToString();
+        private DataSet Collection = new DataSet();
+        String[] paramNames = { "SitecoreID" };
+
         #endregion
 
         #region Constructors
@@ -128,6 +135,14 @@ namespace FormGeneratorAdmin
                 return null;
         }
 
+        public DataSet GetAllFormDataByFormID(string formID)
+        {
+            String[] paramNames = { "Form_ID" };
+            Object[] paramValues = { formID };
+
+            return SQL_SP_Exec("[spr_GetAllFormDataByFormID]", con, paramNames, paramValues);
+        }
+
         public DataTable GetTemplateByFormID(string FormID)
         {
             String[] paramNames = { "Form_ID" };
@@ -184,17 +199,17 @@ namespace FormGeneratorAdmin
                 return null;
         }
 
-        public int AddControlToPlaceHolder(string controlList_ID, string FormID, string Formholder_ID, string FormControl_ID, string displayText)
+        public string AddControlToPlaceHolder(string controlList_ID, string FormID, string PlaceholderName, string FormControl_ID, string displayText)
         {
-            String[] paramNames = { "ControlList_ID", "FormID", "Formholder_ID", "FormControl_ID", "DisplayText" };
-            Object[] paramValues = { controlList_ID, FormID, Formholder_ID, FormControl_ID, displayText };
+            String[] paramNames = { "ControlList_ID", "FormID", "PlaceholderName", "FormControl_ID", "DisplayText" };
+            Object[] paramValues = { controlList_ID, FormID, PlaceholderName, FormControl_ID, displayText };
 
             DataSet ds = SQL_SP_Exec("[spr_AddControlToPlaceHolder]", con, paramNames, paramValues);
 
             if (ds.Tables.Count > 0)
-                return Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+                return ds.Tables[0].Rows[0][0].ToString();
             else
-                return 0;
+                return null;
         }
 
         public int SaveFormControlSetting(object FormControl_ID, string ControlProperty_ID, string settingValue)
