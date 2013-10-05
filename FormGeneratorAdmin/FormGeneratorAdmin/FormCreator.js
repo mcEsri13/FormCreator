@@ -33,6 +33,7 @@ $(document).ready(function () {
 
     $("#btnCreateForm").click(function () {
         colapseAllExcept("divCreateForm");
+        $("#hidFormID").val("");
     });
 
     $("#btnEditForm").click(function () {
@@ -44,9 +45,10 @@ $(document).ready(function () {
 
         $("#txtFormName").val($("#divFormName").text());
         $("#txtSitecoreID").val($("#divSCID").text());
+        $("#txtDateCreated").val($("#divDateCreated").text());
         $("#txtTrackingCampaign").val($("#divTrackingCampaign").text());
         $("#txtTrackingForm").val($("#divTrackingForm").text());
-        $("#txtTrackingSource").val( $("#divTrackingSource").text());
+        $("#txtTrackingSource").val($("#divTrackingSource").text());
         $("#hidFormID").val($("#ddlFormList").val());
 
         colapseAllExcept("divCreateForm");
@@ -171,7 +173,7 @@ $(document).ready(function () {
         }
     });
 
- 
+
     $("#btnContinue").click(function () {
 
         formName = $("#txtFormName").val();
@@ -189,12 +191,6 @@ $(document).ready(function () {
             success: function (data) {
 
                 var j = $.parseJSON(data.d);
-                $("#txtFormName").val("");
-                $("#txtSitecoreID").val("");
-                $("#txtTrackingCampaign").val("");
-                $("#txtTrackingForm").val("");
-                $("#txtTrackingSource").val("");
-                $("#hidFormID").val("");
 
                 if (j[0].Name != null) {
 
@@ -202,12 +198,21 @@ $(document).ready(function () {
                     $("#divPreviewFormInfo").show();
                     $("#divEditForm").show();
 
-                    $('#ddlFormList')
+
+                    if ($("#hidFormID").val() != "") {
+
+                        $('#ddlFormList').val($("#hidFormID").val()) 
+
+                    }
+                    else {
+                        $('#ddlFormList')
                          .append($("<option></option>")
                          .attr("value", j[0].Form_ID)
                          .text(j[0].Name));
 
-                    $('#ddlFormList').val(j[0].Form_ID)
+                        $('#ddlFormList').val(j[0].Form_ID)                    
+                    }
+
 
                     $("#divFormName").text(j[0].Name);
                     $("#divSCID").text(j[0].ItemID);
@@ -216,7 +221,15 @@ $(document).ready(function () {
                     $("#divTrackingCampaign").text(j[0].Tracking_Campaign);
                     $("#divTrackingForm").text(j[0].Tracking_Form);
                     $("#divTrackingSource").text(j[0].Tracking_Source);
-                    
+
+                    $("#txtFormName").val("");
+                    $("#txtSitecoreID").val("");
+                    $("#txtDateCreated").val("");
+                    $("#txtTrackingCampaign").val("");
+                    $("#txtTrackingForm").val("");
+                    $("#txtTrackingSource").val("");
+                    $("#hidFormID").val("");
+
                 }
             },
             error: function (msg) {
