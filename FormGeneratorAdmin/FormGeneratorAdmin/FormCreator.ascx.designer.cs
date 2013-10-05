@@ -13,24 +13,6 @@ namespace FormGeneratorAdmin {
     public partial class FormCreator {
         
         /// <summary>
-        /// ddlFormList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFormList;
-        
-        /// <summary>
-        /// pnlFields control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFields;
-        
-        /// <summary>
         /// ddlLayout control.
         /// </summary>
         /// <remarks>
@@ -47,6 +29,24 @@ namespace FormGeneratorAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStyle;
+        
+        /// <summary>
+        /// ddlFormList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFormList;
+        
+        /// <summary>
+        /// pnlFields control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFields;
         
         /// <summary>
         /// ddlActions control.

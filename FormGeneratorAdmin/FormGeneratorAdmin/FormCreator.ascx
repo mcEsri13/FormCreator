@@ -26,6 +26,10 @@
     <span>Tracking Campaign</span><input type="text" id="txtTrackingCampaign" /><br />
     <span>Tracking Form</span><input type="text" id="txtTrackingForm" /><br />    
     <span>Tracking Source</span><input type="text" id="txtTrackingSource" /><br />  
+    <asp:DropDownList ID="ddlLayout" runat="server" ClientIDMode="Static">
+    </asp:DropDownList><br />  
+    <asp:DropDownList ID="ddlStyle" runat="server" ClientIDMode="Static">
+    </asp:DropDownList><br />  
     <input type="button" id="btnContinue" value="Continue" />
     <input type="button" class="closeButton" value="Close" />
 </div>
@@ -52,10 +56,6 @@
         </div>
         <div id="rightpane">
             <div id="divFormPreview">
-                <asp:DropDownList ID="ddlLayout" runat="server" ClientIDMode="Static">
-                </asp:DropDownList>
-                <asp:DropDownList ID="ddlStyle" runat="server" ClientIDMode="Static">
-                </asp:DropDownList>
                 <input type="button" id="btnSaveFormChanges" value="Save" />
             </div>
             <!--testing drabble jquery-->
@@ -72,14 +72,15 @@
 </div>
 
 <!--edit modals-->
-    <div id="mCheckboxGroup">
+    <div id="mFormControlGroup">
+        <input type="hidden" id="hidSetFC_ID" />
         <p>Checkbox Edit!</p>
-        <div id="divAddCheckbox">
-            Text<input type="text" id="txtCBText" />
-            Value<input type="text" id="txtCBValue" />
-            <input id="btnAddCheckbox" type="button" value="Add" />
+        <div id="divAddFCG">
+            Text<input type="text" id="txtFCGItemText" />
+            Value<input type="text" id="txtFCGItemValue" />
+            <input id="btnAddFCGItem" type="button" value="Add" />
         </div>
-        <table id="tblCheckboxes">
+        <table id="tblFCGItems">
             <tr>
                 <th>Text</th>
                 <th>Value</th>
@@ -87,13 +88,14 @@
             </tr>
         </table><br />
         <input type="button" class="closeDialog" value="Done" />
-    </div><!--end checkbox group-->
+    </div><!--end FCG -->
     <div id="mRadioGroup">
         <h1>Radio Edit!</h1>
         <br />
         <input type="button" class="closeDialog" value="Done" />
-    </div><!--end checkbox group-->
+    </div><!--end Radio group-->
     <div id="mSubmit">
+        <input type="hidden" id="hidSetAction" />
         <p>Submit Edit!</p>
         <asp:DropDownList ID="ddlActions" runat="server" ClientIDMode="Static">
         </asp:DropDownList>

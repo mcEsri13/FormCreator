@@ -45,11 +45,27 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static void AddElementAction(string formControlID, string controlActionTypeID)
+        public static string AddFormControlGroupItem(string formControl_ID, string controlList_ID, string text, string value, string formControlGroup_ID)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            data.AddControlAction(formControlID, controlActionTypeID);
+            return GetJson(data.AddFormControlGroupItem(formControl_ID, controlList_ID, text, value, formControlGroup_ID));
+        }
+
+        [WebMethod]
+        public static string SetElementAction(string formControlID, string controlActionTypeID)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            return GetJson(data.AddControlAction(formControlID, controlActionTypeID));
+        }
+
+        [WebMethod]
+        public static void RemoveFormControlGroupItem(string formControlGroup_ID)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            data.RemoveFormControlGroupItem(formControlGroup_ID);
         }
 
         [WebMethod]
@@ -74,6 +90,14 @@ namespace FormGeneratorAdmin
             FormGeneratorData data = new FormGeneratorData();
 
             return GetJson( data.GetAllControlActionDataByFormControl_ID(formControl_ID));
+        }
+
+        [WebMethod]
+        public static string GetAllFormControlGroupItemsByFormControl_ID(string formControl_ID)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            return GetJson(data.GetAllFormControlGroupItemsByFormControl_ID(formControl_ID));
         }
 
         [WebMethod]
@@ -156,11 +180,11 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static string RemoveElementAction(string controlAction_ID)
+        public static void RemoveElementAction(string controlAction_ID)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            return GetJson( data.RemoveControlAction(controlAction_ID));
+            data.RemoveControlAction(controlAction_ID);
         }
 
         [WebMethod]
@@ -196,7 +220,7 @@ namespace FormGeneratorAdmin
         {
             FormGeneratorData data = new FormGeneratorData();
             return GetJson( data.GetControlActionTypes());
-        }
+         }
 
         [WebMethod]
         public static int SaveFormElementSetting(string formControl_ID, string controlProperty_ID, string settingValue)

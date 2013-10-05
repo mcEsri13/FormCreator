@@ -53,6 +53,7 @@ body
 }
 #leftpane, #rightpane {
 	float: left;
+	position:relative;
 }
 #leftpane {
 	width: 20% !important;
@@ -63,12 +64,24 @@ body
 
 
 /* Left Panel */
+/*#pnlFields {
+	border: 1px solid #CCC !important;
+	position:absolute;
+	left:0;
+	right:10px;
+	top:0;
+	bottom:0;
+	
+	min-height: 500px;
+	overflow: scroll;
+}*/
 #pnlFields {
 	border: 1px solid #CCC !important;
 	min-height: 500px;
 	padding-right: 10px;
 	overflow: scroll;
 	width: 90% !important;
+	overflow-x: hidden;
 }
 #pnlFields .listItem.ui-draggable {
 	background: #DDD;
@@ -76,6 +89,17 @@ body
 	display: block;
 	padding: 5px 10px;
 	width: 100%;
+	cursor: move;
+}
+.listItem.ui-draggable.ui-draggable-dragging {
+    background: #DDD;  
+    border-bottom: 1px solid #CCC; 
+    padding: 5px 30px 5px 10px;  
+    cursor: move; 
+}
+
+#pnlFields .listItem.ui-draggable:hover {
+    background-color: #ccc;
 }
 
 /* Right Panel - Preview */
@@ -109,8 +133,11 @@ input[type="button"] {
     color: #555;
     border: 1px solid #CCC;
     padding: 5px 10px;
+    cursor:pointer;
 }
-
+input[type="button"]:hover {
+    background-color:#E90;
+}
 /* CREATE FORM */
 #divCreateForm span {
     width: 160px;

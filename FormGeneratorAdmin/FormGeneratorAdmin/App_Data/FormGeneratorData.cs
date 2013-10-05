@@ -371,6 +371,19 @@ namespace FormGeneratorAdmin
                 return null;
         }
 
+        public DataTable GetAllFormControlGroupItemsByFormControl_ID(string FormControl_ID)
+        {
+            String[] paramNames = { "FormControl_ID" };
+            Object[] paramValues = { FormControl_ID };
+
+            DataSet ds = SQL_SP_Exec("[spr_GetAllFormControlGroupItemsByFormControl_ID]", con, paramNames, paramValues);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
         public DataTable GetControlActionParametersByControlAction_ID(string controlAction_ID)
         {
             String[] paramNames = { "ControlAction_ID" };
@@ -425,12 +438,30 @@ namespace FormGeneratorAdmin
             DataSet ds = SQL_SP_Exec("[spr_GetFormControlByFormControl_ID]", con, paramNames, paramValues);
         }
 
-        public void AddControlAction(string FormControl_ID, string controlActionType_ID)
+        public DataTable AddFormControlGroupItem(string formControl_ID, string controlList_ID, string text, string value, string formControlGroup_ID)
+        {
+            String[] paramNames = { "FormControl_ID", "ControlList_ID", "Text", "Value", "FormControlGroup_ID" };
+            Object[] paramValues = { formControl_ID, controlList_ID, text, value, formControlGroup_ID };
+
+            DataSet ds = SQL_SP_Exec("[spr_AddFormControlGroupItem]", con, paramNames, paramValues);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
+        public DataTable AddControlAction(string FormControl_ID, string controlActionType_ID)
         {
             String[] paramNames = { "FormControl_ID", "ControlActionType_ID" };
             Object[] paramValues = { FormControl_ID, controlActionType_ID };
 
             DataSet ds = SQL_SP_Exec("[spr_AddControlAction]", con, paramNames, paramValues);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
         }
 
         public void UpdateRequiredByFormControl_ID(string FormControl_ID, bool isRequired)
@@ -569,6 +600,19 @@ namespace FormGeneratorAdmin
             Object[] paramValues = { controlAction_ID };
 
             DataSet ds = SQL_SP_Exec("[spr_RemoveControlAction]", con, paramNames, paramValues);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
+        public DataTable RemoveFormControlGroupItem(string formControlGroup_ID)
+        {
+            String[] paramNames = { "FormControlGroup_ID" };
+            Object[] paramValues = { formControlGroup_ID };
+
+            DataSet ds = SQL_SP_Exec("[spr_RemoveFormControlGroupItem]", con, paramNames, paramValues);
 
             if (ds.Tables.Count > 0)
                 return ds.Tables[0];
