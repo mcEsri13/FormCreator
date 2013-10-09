@@ -26,6 +26,8 @@
     <span>Tracking Campaign</span><input type="text" id="txtTrackingCampaign" /><br />
     <span>Tracking Form</span><input type="text" id="txtTrackingForm" /><br />    
     <span>Tracking Source</span><input type="text" id="txtTrackingSource" /><br />  
+
+    <span>Header</span><input type="text" id="txtHeader" /><br />  
     <asp:DropDownList ID="ddlLayout" runat="server" ClientIDMode="Static">
     </asp:DropDownList><br />  
     <asp:DropDownList ID="ddlStyle" runat="server" ClientIDMode="Static">
@@ -44,6 +46,10 @@
     <span>Tracking Form</span><div id="divTrackingForm"></div><br />
     <span>Tracking Source</span><div id="divTrackingSource"></div><br />
 
+    <span>Header</span><div id="divHeader"></div><br />
+    <span>Template</span><div id="divTemplate"></div><br />
+    <span>Style</span><div id="divStyle"></div><br />
+
     <span>Item Path</span><div id="divItemPath"></div><br />
     <input type="button" id="btnEditFormInfo" value="Edit" />
     <input type="button" class="closeButton" value="Close" />
@@ -56,7 +62,7 @@
         </div>
         <div id="rightpane">
             <div id="divFormPreview">
-                <input type="button" id="btnSaveFormChanges" value="Save" />
+                <%--<input type="button" id="btnSaveFormChanges" value="Save" />--%>
             </div>
             <!--testing drabble jquery-->
 

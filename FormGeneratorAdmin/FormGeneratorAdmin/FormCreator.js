@@ -49,6 +49,16 @@ $(document).ready(function () {
         $("#txtTrackingCampaign").val($("#divTrackingCampaign").text());
         $("#txtTrackingForm").val($("#divTrackingForm").text());
         $("#txtTrackingSource").val($("#divTrackingSource").text());
+        $("#txtHeader").val($("#divHeader").text());
+
+        $("#ddlLayout option").filter(function () {
+            return $(this).text() == $("#divTemplate").text();
+        }).prop('selected', true);
+
+        $("#ddlStyle option").filter(function () {
+            return $(this).text() == $("#divStyle").text();
+        }).prop('selected', true);
+
         $("#hidFormID").val($("#ddlFormList").val());
 
         colapseAllExcept("divCreateForm");
@@ -84,6 +94,8 @@ $(document).ready(function () {
 
                     if (status == "Added" || status == "Activated")
                         $("#tblFCGItems").append('<tr><td>' + text + '</td><td>' + value + '</td><td><input class="removeFCGItem" type="button" fcgID="' + fcgID + '" value="X" /></td></tr>');
+
+                    FCGItemsRemoveInit();
                 },
                 error: function (msg) {
 
@@ -92,11 +104,8 @@ $(document).ready(function () {
                 }
             });
 
-            FCGItemsRemoveInit();
         }
     });
-
-
 
 
     $("#btnAddAction").click(function () {
@@ -151,6 +160,7 @@ $(document).ready(function () {
                     if (status == "Added" || status == "Activated")
                         $("#tblActions").append('<tr><td>' + $("#ddlActions option:selected").text() + "</td><td><input class='removeAction' atid='" + atid + "' type='button' fcgID='' value='X' /></td></tr>");
 
+                    ActionRemoveInit();
                 },
                 error: function (msg) {
 
@@ -158,9 +168,9 @@ $(document).ready(function () {
                     return;
                 }
             });
-        }
 
-        ActionRemoveInit();
+            ActionRemoveInit();
+        }
     });
 
     $("#ddlActions").change(function () {
@@ -182,10 +192,14 @@ $(document).ready(function () {
         source = $("#txtTrackingSource").val();
         tform = $("#txtTrackingForm").val();
 
+        header = $("#txtHeader").val();
+        templateID = $("#ddlLayout").val();
+        styleID = $("#ddlStyle").val();
+
         $.ajax({
             type: "POST",
             url: "ajax.aspx/AddForm",
-            data: "{'formName':'" + formName + "', 'sitecoreID':'" + sitecoreID + "', 'trackingCampaign':'" + campaign + "', 'trackingSource':'" + source + "', 'trackingForm':'" + tform + "'}",
+            data: "{'formName':'" + formName + "', 'sitecoreID':'" + sitecoreID + "', 'trackingCampaign':'" + campaign + "', 'trackingSource':'" + source + "', 'trackingForm':'" + tform + "', 'header':'" + header + "', 'templateID':'" + templateID + "', 'styleID':'" + styleID + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
@@ -201,7 +215,7 @@ $(document).ready(function () {
 
                     if ($("#hidFormID").val() != "") {
 
-                        $('#ddlFormList').val($("#hidFormID").val()) 
+                        $('#ddlFormList').val($("#hidFormID").val())
 
                     }
                     else {
@@ -210,7 +224,7 @@ $(document).ready(function () {
                          .attr("value", j[0].Form_ID)
                          .text(j[0].Name));
 
-                        $('#ddlFormList').val(j[0].Form_ID)                    
+                        $('#ddlFormList').val(j[0].Form_ID)
                     }
 
 
@@ -222,6 +236,11 @@ $(document).ready(function () {
                     $("#divTrackingForm").text(j[0].Tracking_Form);
                     $("#divTrackingSource").text(j[0].Tracking_Source);
 
+                    $("#divHeader").text(j[0].Header);
+                    $("#divTemplate").text(j[0].TemplateName);
+                    $("#divStyle").text(j[0].StyleName);
+
+
                     $("#txtFormName").val("");
                     $("#txtSitecoreID").val("");
                     $("#txtDateCreated").val("");
@@ -229,7 +248,11 @@ $(document).ready(function () {
                     $("#txtTrackingForm").val("");
                     $("#txtTrackingSource").val("");
                     $("#hidFormID").val("");
+                    $("#txtHeader").val("");
+                    $("#ddlLayout").val("-1");
+                    $("#ddlStyle").val("-1");
 
+                    $("#ddlFormList").trigger("change");
                 }
             },
             error: function (msg) {
@@ -247,7 +270,6 @@ $(document).ready(function () {
     DialogInit("mFormControlGroup", "btnCBGroup");
     DialogInit("mRadioGroup", "btnRGroup");
     DialogInit("mCustomDropdown", "btnCustomDD");
-
 
 
     $("#ddlFormList").change(function () {
@@ -281,6 +303,10 @@ $(document).ready(function () {
                         $("#divTrackingForm").text(j.formData[0].Tracking_Form);
                         $("#divTrackingSource").text(j.formData[0].Tracking_Source);
 
+                        $("#divHeader").text(j.formData[0].Header);
+                        $("#divTemplate").text(j.formData[0].TemplateName);
+                        $("#divStyle").text(j.formData[0].StyleName);
+
                         //render form
                         $("#hiddenModalForm").empty();
 
@@ -300,12 +326,30 @@ $(document).ready(function () {
                         $("#ecasReturnURL").val(j.formActions[0].ECASReturnURL);
                         ActionRemoveInit();
 
+                        //Group
+                        $("input[hk=CBtrigger]").click(function () {
 
-                        //formControlGroup
-                        $("#tblFCGItems").empty();
-                        $("#tblFCGItems").append(createFCGItems(j.formChildElements));
-                        FCGItemsRemoveInit();
+                            fcid = $(this).parent().attr("fcid");
 
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax.aspx/GetAllFormControlGroupItemsByFormControl_ID",
+                                data: "{'formControl_ID':'" + fcid + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+
+                                    var j = $.parseJSON(data.d);
+
+                                    $("#tblFCGItems").empty();
+                                    $("#tblFCGItems").append(createFCGItems(j));
+                                    FCGItemsRemoveInit();
+                                },
+                                error: function (msg) {
+                                    alert('load fail!');
+                                }
+                            });
+                        });
 
                         DragDropInit();
 
@@ -411,34 +455,38 @@ function DragDropInit() {
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (data) {
-                            fcid = data;
+
+                            fcid = data.d;
                             current.attr("fcid", fcid);
+
+                            if (ui.draggable.attr("ctype") == "TextBox") {
+                                current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='text' /><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+
+                                BindCRUDEvents(current, ui.draggable.attr("clID"), null);
+                            }
+                            else if (ui.draggable.attr("ctype") == "DropDownList") {
+                                current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><select><option value='-1'>select</option></select><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+
+                                BindCRUDEvents(current, ui.draggable.attr("clID"), null);
+                            }
+                            else if (ui.draggable.attr("ctype") == "Group") {
+                                current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span>Group of Checkboxes<input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate<input type='button' class='btnCBGroup' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'></div>");
+
+                                BindCRUDEvents(current, ui.draggable.attr("clID"), "mFormControlGroup");
+
+                            }
+                            else if (ui.draggable.attr("ctype") == "Submit") {
+                                current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='button' value='Submit' /><input type='button' class='remove' value='X' ><input type='button' class='btnEdit' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'>");
+
+                                BindCRUDEvents(current, ui.draggable.attr("clID"), "mSubmit");
+                            }
                         },
                         error: function (msg) {
                             alert('oops!');
                         }
                     });
 
-                    if (ui.draggable.attr("ctype") == "TextBox") {
-                        $(this).append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='text' /><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' >validate</div>");
 
-                        BindCRUDEvents($(this), ui.draggable.attr("clID"), null);
-                    }
-                    else if (ui.draggable.attr("ctype") == "DropDownList") {
-                        $(this).append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><select><option value='-1'>select</option></select><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' >validate</div>");
-
-                        BindCRUDEvents($(this), ui.draggable.attr("clID"), null);
-                    }
-                    else if (ui.draggable.attr("ctype") == "Group") {
-                        $(this).append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span>Group of Checkboxes<input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' >validate<input type='button' class='btnCBGroup' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'></div>");
-
-                        BindCRUDEvents($(this), ui.draggable.attr("clID"), "mCheckboxGroup");
-                    }
-                    else if (ui.draggable.attr("ctype") == "Submit") {
-                        $(this).append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='button' value='Submit' /><input type='button' class='remove' value='X' ><input type='button' class='btnEdit' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'>");
-
-                        BindCRUDEvents($(this), ui.draggable.attr("clID"), "mSubmit");
-                    }
 
 
                 } //end if
@@ -479,35 +527,36 @@ function DragDropInit() {
 
 function BindCRUDEvents(element, clID, triggerModal) {
 
-    //Remove
-    //element.find("#btn_remove_" + clID).click(function () {
     element.find(".remove").click(function () {
 
+        current = $(this);
         //ajax call to add to database, then returned formControl_id, add attribute to input field
-        fcID = $(this).closest("div").attr("fcid");
+        fcID = $(this).parent().attr("fcid");
 
-        //        $.ajax({
-        //            type: "POST",
-        //            url: "ajax.aspx/RemoveElement",
-        //            data: "{'formControlID':'" + fcID + "'}",
-        //            contentType: "application/json; charset=utf-8",
-        //            dataType: "json",
-        //            success: function (data) {
-        //                $(this).parent().remove();
-        //            },
-        //            error: function (msg) {
-        //                alert(msg);
-        //            }
-        //        });
-
-        $(this).parent().remove();
+        $.ajax({
+            type: "POST",
+            url: "ajax.aspx/RemoveElement",
+            data: "{'formControlID':'" + fcID + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                current.parent().remove();
+            },
+            error: function (msg) {
+                alert(msg);
+            }
+        });
     });
 
     if (triggerModal != null) {
         element.find("#btn_edit_" + clID).click(function () {
+            fcID = $(this).parent().attr("fcid");
 
-            fcID = $(this).closest("span").attr("fcID");
-
+            if (triggerModal == 'mSubmit')
+                $("#hidSetAction").val(fcID);
+            else if (triggerModal == 'mFormControlGroup')
+                $("#hidSetFC_ID").val(fcID);
+            
             $("#" + triggerModal).dialog("open");
             $(".ui-widget-overlay").css("background", "#000");
         });
@@ -516,7 +565,27 @@ function BindCRUDEvents(element, clID, triggerModal) {
     //Validate
     element.find("#chk" + clID).click(function () {
 
-        //ajax call to add to database, then returned formControl_id, add attribute to input field
+        current = $(this);
+        fcid = current.closest("div").attr("fcid");
+
+        if (current.is(':checked'))
+            checked = "true";
+        else
+            checked = "false";
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.aspx/SetElementValidation",
+            data: "{'formControlID':'" + fcid + "','isChecked':'" + checked + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+            },
+            error: function (msg) {
+                alert('validation save fail!');
+            }
+        });
 
     });
 }
@@ -600,13 +669,12 @@ function createElement(element) {
 
     if (type == "TextBox")
         return "<input  type='text' /><input type='button' class='remove' value='X'><input type='checkbox' class='doValidate' " + validate + " >validate</div>";
-    else if(type == "DropDownList")
-        return  "<select ><option value='-1'>" + element.AprimoFieldName + "</option></select><input type='button' class='remove' value='X'  ><input type='checkbox' class='doValidate' " + validate + " >validate</div>";
-    else if (type == "Submit")
+    else if (type == "DropDownList")
+        return "<select ><option value='-1'>" + element.AprimoFieldName + "</option></select><input type='button' class='remove' value='X'  ><input type='checkbox' class='doValidate' " + validate + " >validate</div>";
+    else if (type == "Submit") 
         return "<input  type='button' value='Submit' /><input type='button' class='remove' value='X'  ><input type='button' class='btnEdit' value='Edit' ></div>";
-    else if (type == "Group")
-        return "<input  type='checkbox' />checkbox group<input type='button' class='remove' value='X'  ><input type='button' class='btnEdit' value='Edit' ></div>";
-
+    else if (type == "Group") 
+        return "<input  type='checkbox' />checkbox group<input type='button' class='remove' value='X'  ><input type='button' class='btnEdit' value='Edit' fcid='" + element.FormControl_ID + "' hk='CBtrigger' ></div>";
 }
 
 function createHeader(headerName) {
@@ -651,12 +719,12 @@ function ActionRemoveInit() {
 
         current = $(this);
 
-        fcgid = current.attr("fcgid");
+        atid = current.attr("atid");
 
         $.ajax({
             type: "POST",
             url: "ajax.aspx/RemoveElementAction",
-            data: "{'controlAction_ID':'" + fcgid + "'}",
+            data: "{'controlAction_ID':'" + atid + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {

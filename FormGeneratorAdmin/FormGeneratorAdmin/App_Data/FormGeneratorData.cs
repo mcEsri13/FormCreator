@@ -86,10 +86,10 @@ namespace FormGeneratorAdmin
             DataSet ds = SQL_SP_Exec("[spr_LogAction]", con, paramNames, paramValues);
         }
 
-        public DataTable AddForm(string name, string itemID, string trackingCampaign, string trackingSource, string trackingForm)
+        public DataTable AddForm(string name, string itemID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID)
         {
-            String[] paramNames = { "Name", "ItemID", "TrackingCampaign", "TrackingSource", "TrackingForm" };
-            Object[] paramValues = { name, itemID, trackingCampaign, trackingSource, trackingForm };
+            String[] paramNames = { "Name", "ItemID", "TrackingCampaign", "TrackingSource", "TrackingForm", "Header", "TemplateID", "StyleID" };
+            Object[] paramValues = { name, itemID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID };
 
             DataSet ds = SQL_SP_Exec("[spr_AddForm]", con, paramNames, paramValues);
 

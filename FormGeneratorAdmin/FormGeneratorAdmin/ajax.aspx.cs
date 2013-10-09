@@ -137,15 +137,13 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static string AddForm(string formName, string sitecoreID, string trackingCampaign, string trackingSource, string trackingForm)
+        public static string AddForm(string formName, string sitecoreID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            DataTable dtResult = data.AddForm(formName, sitecoreID, trackingCampaign, trackingSource, trackingForm);
+            DataTable dtResult = data.AddForm(formName, sitecoreID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID);
 
             return GetJson(dtResult);
-
-            //return "[{\"Form_ID\":\"11111\",\"Name\":\"testName\", \"ItemID\":\"{245234-2452345-23534-235435}\",\"ModificationDate\":\"1/1/2014\",\"Tracking_Campaign\":\"1111111\",\"Tracking_Source\":\"2222222\",\"Tracking_Form\":\"3333333\"}]";
         }
 
         [WebMethod]
