@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\Users\jose7275\Desktop\Form Creator Files" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Web.config" publishTime="10/10/2013 12:18:52" />
+    <file relUrl="FormCreator_old.css" publishTime="10/03/2013 17:45:02" />
+    <file relUrl="packages.config" publishTime="10/02/2013 15:17:07" />
+    <file relUrl="FormCreator.js" publishTime="10/10/2013 14:16:12" />
+    <file relUrl="bin/Newtonsoft.Json.xml" publishTime="10/02/2013 15:17:06" />
+    <file relUrl="FormCreator.ascx" publishTime="10/09/2013 12:35:04" />
+    <file relUrl="bin/Esri.FormGenerator.dll" publishTime="10/01/2013 10:36:12" />
+    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="10/02/2013 15:17:06" />
+    <file relUrl="FormCreator.css" publishTime="10/09/2013 13:19:02" />
+    <file relUrl="Default.aspx" publishTime="09/23/2013 06:58:04" />
+    <file relUrl="ajax.aspx" publishTime="09/23/2013 11:02:42" />
+    <file relUrl="bin/FormGeneratorAdmin.pdb" publishTime="10/09/2013 13:19:04" />
+    <file relUrl="bin/FormGeneratorAdmin.dll" publishTime="10/09/2013 13:19:05" />
+  </publishProfile>
+</publishData>

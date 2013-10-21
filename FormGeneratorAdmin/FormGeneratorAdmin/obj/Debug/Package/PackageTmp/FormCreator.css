@@ -249,7 +249,6 @@ input[type="submit"]:hover {
   border: 1px solid #CCC;
   float: left;
   position: relative;
-  min-width: 1000px;
 }
 
 /* Renderer - Header */
