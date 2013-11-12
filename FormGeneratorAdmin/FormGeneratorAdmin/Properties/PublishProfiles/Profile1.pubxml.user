@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <TimeStampOfAssociatedLegacyPublishXmlFile>2013-10-22T06:48:06.6633447-07:00</TimeStampOfAssociatedLegacyPublishXmlFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="ajax.aspx">
+      <publishTime>09/23/2013 11:02:42</publishTime>
+    </File>
+    <File Include="bin/Esri.FormGenerator.dll">
+      <publishTime>10/01/2013 10:36:12</publishTime>
+    </File>
+    <File Include="bin/FormGeneratorAdmin.dll">
+      <publishTime>10/09/2013 13:19:05</publishTime>
+    </File>
+    <File Include="bin/FormGeneratorAdmin.pdb">
+      <publishTime>10/09/2013 13:19:04</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>10/02/2013 15:17:06</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.xml">
+      <publishTime>10/02/2013 15:17:06</publishTime>
+    </File>
+    <File Include="Default.aspx">
+      <publishTime>09/23/2013 06:58:04</publishTime>
+    </File>
+    <File Include="FormCreator.ascx">
+      <publishTime>10/09/2013 12:35:04</publishTime>
+    </File>
+    <File Include="FormCreator.css">
+      <publishTime>10/11/2013 12:01:35</publishTime>
+    </File>
+    <File Include="FormCreator.js">
+      <publishTime>10/22/2013 06:41:25</publishTime>
+    </File>
+    <File Include="FormCreator_old.css">
+      <publishTime>10/03/2013 17:45:02</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>10/02/2013 15:17:07</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>10/22/2013 06:42:07</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

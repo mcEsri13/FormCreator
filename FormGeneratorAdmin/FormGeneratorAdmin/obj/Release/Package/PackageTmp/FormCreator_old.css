@@ -1,0 +1,204 @@
+﻿/* GENERAL RULES */
+body
+{
+    font-family:Calibri
+}
+
+#leftpane,
+#rightpane,
+#pnlFields,
+#divPreviewFormInfo,
+#phColumn1, 
+#phColumn2 {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* LOGIN */
+#divlogIn span {
+    width: 100px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#divlogIn input[type=button] {
+    margin-left: 192px;
+}
+
+#divCreateOrEdit,
+#divCreateForm,
+#divPreviewFormInfo,
+#divEditForm,
+#mCheckboxGroup, 
+#mRadioGroup, 
+#mCustomDropdown, 
+#mSubmit, 
+#divReturnURL
+{
+    display:none;
+}
+
+#divControlList {}
+
+#divFormPreview {}
+
+#divEditing {}
+
+
+
+/* Left and Right Panes */
+#divEditForm {
+	width: 100%;
+}
+#leftpane, #rightpane {
+	float: left;
+	position:relative;
+}
+#leftpane {
+	width: 20% !important;
+}
+#rightpane {
+	width: 80% !important;
+}
+
+
+/* Left Panel */
+/*#pnlFields {
+	border: 1px solid #CCC !important;
+	position:absolute;
+	left:0;
+	right:10px;
+	top:0;
+	bottom:0;
+	
+	min-height: 500px;
+	overflow: scroll;
+}*/
+#pnlFields {
+	border: 1px solid #CCC !important;
+	min-height: 500px;
+	padding-right: 10px;
+	overflow: scroll;
+	width: 90% !important;
+	overflow-x: hidden;
+}
+#pnlFields .listItem.ui-draggable {
+	background: #DDD;
+	border-bottom: 1px solid #CCC;
+	display: block;
+	padding: 5px 10px;
+	width: 100%;
+	cursor: move;
+}
+.listItem.ui-draggable.ui-draggable-dragging {
+    background: #DDD;  
+    border-bottom: 1px solid #CCC; 
+    padding: 5px 30px 5px 10px;  
+    cursor: move; 
+}
+
+#pnlFields .listItem.ui-draggable:hover {
+    background-color: #ccc;
+}
+
+/* Right Panel - Preview */
+#rightpane #divFormPreview select {
+	margin-bottom: 20px;
+}
+#rightpane #testWrapper {
+	border: 1px solid #CCC !important;
+	height: 100%;
+	min-height: 500px;
+	width: 80%;
+}
+#phColumn1, #phColumn2 {
+	border: 1px solid #CCC !important;
+	float: left;
+	height: 100% !important;
+	min-height: 300px;
+	width: 50% !important;
+}
+#phBottom {
+	border: 1px solid #CCC !important;
+	float: left;
+	height: 100% !important;
+	min-height: 200px;
+	width: 100% !important;
+}
+
+/* Default Button */
+input[type="button"] {
+    background: orange;
+    color: #555;
+    border: 1px solid #CCC;
+    padding: 5px 10px;
+    cursor:pointer;
+}
+input[type="button"]:hover {
+    background-color:#E90;
+}
+/* CREATE FORM */
+#divCreateForm span {
+    width: 160px;
+    display: inline-block;
+    font-size: 16px;
+}
+#divCreateForm input[type="text"] {
+    margin-bottom: 5px;
+}
+#divCreateForm input[type="button"] {
+    margin: 15px 0;
+}
+
+
+
+/* PREVIEW FORM */
+#divPreviewFormInfo {
+	float: left;
+	width: 100%;
+	padding: 20px;
+	margin: 0 0 10px 0;
+	background: #DDD;
+	border-bottom: 1px solid #CCC;
+}
+#divPreviewFormInfo select {
+	margin-bottom: 10px;
+}
+#divPreviewFormInfo span,
+#divPreviewFormInfo div {
+	float: left;
+}
+#divPreviewFormInfo span {
+	width: 170px;
+}
+#divPreviewFormInfo input[type="button"] {
+	margin-top: 20px;
+}
+
+#divEditForm {
+	float: left;
+}
+
+
+
+/* Form Fields */
+select 
+{
+  width: 300px;
+  height: 30px;    
+  border: 1px solid #DEDEDE;
+}
+input {
+    font-size: 13px;
+    padding: 3px 5px;
+}
+input[type="submit"] {
+    border: 1px solid #DEDEDE;
+    background: #EDEDED;
+    cursor: pointer;
+    margin: 5px 0;
+}
+input[type="submit"]:hover {
+    background: #DEDEDE;
+}

@@ -444,48 +444,52 @@ function DragDropInit() {
                 clID = ui.draggable.attr("clID");
                 phID = current.attr("id");
                 formID = $("#ddlFormList").val();
+                label = ui.draggable.html();
                 fcid = "";
 
-                if (ui.draggable[0].localName == 'span') {
+                if (!DoesFieldExist(label)) {
 
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax.aspx/AddElementToContainer",
-                        data: "{'controlList_ID':'" + clID + "','formID':'" + formID + "','placeholderName':'" + phID + "','formControl_ID':'','text':''}",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (data) {
+                    if (ui.draggable[0].localName == 'span') {
 
-                            fcid = data.d;
-                            current.attr("fcid", fcid);
+                        $.ajax({
+                            type: "POST",
+                            url: "ajax.aspx/AddElementToContainer",
+                            data: "{'controlList_ID':'" + clID + "','formID':'" + formID + "','placeholderName':'" + phID + "','formControl_ID':'','text':''}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
 
-                            if (ui.draggable.attr("ctype") == "TextBox") {
-                                current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='text' /><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+                                fcid = data.d;
+                                current.attr("fcid", fcid);
 
-                                BindCRUDEvents(current, ui.draggable.attr("clID"), null);
+                                if (ui.draggable.attr("ctype") == "TextBox") {
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='text' /><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+
+                                    BindCRUDEvents(current, ui.draggable.attr("clID"), null);
+                                }
+                                else if (ui.draggable.attr("ctype") == "DropDownList") {
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><select><option value='-1'>select</option></select><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+
+                                    BindCRUDEvents(current, ui.draggable.attr("clID"), null);
+                                }
+                                else if (ui.draggable.attr("ctype") == "Group") {
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span>Group of Checkboxes<input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate<input type='button' class='btnCBGroup' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'></div>");
+
+                                    BindCRUDEvents(current, ui.draggable.attr("clID"), "mFormControlGroup");
+
+                                }
+                                else if (ui.draggable.attr("ctype") == "Submit") {
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='button' value='Submit' /><input type='button' class='remove' value='X' ><input type='button' class='btnEdit' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'>");
+
+                                    BindCRUDEvents(current, ui.draggable.attr("clID"), "mSubmit");
+                                }
+                            },
+                            error: function (msg) {
+                                alert('oops!');
                             }
-                            else if (ui.draggable.attr("ctype") == "DropDownList") {
-                                current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><select><option value='-1'>select</option></select><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+                        });
 
-                                BindCRUDEvents(current, ui.draggable.attr("clID"), null);
-                            }
-                            else if (ui.draggable.attr("ctype") == "Group") {
-                                current.append("<div class='set' fcid='" + fcid + "'><span group='products'>" + ui.draggable.text() + "</span>Group of Checkboxes<input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate<input type='button' class='btnCBGroup' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'></div>");
-
-                                BindCRUDEvents(current, ui.draggable.attr("clID"), "mFormControlGroup");
-
-                            }
-                            else if (ui.draggable.attr("ctype") == "Submit") {
-                                current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='button' value='Submit' /><input type='button' class='remove' value='X' ><input type='button' class='btnEdit' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'>");
-
-                                BindCRUDEvents(current, ui.draggable.attr("clID"), "mSubmit");
-                            }
-                        },
-                        error: function (msg) {
-                            alert('oops!');
-                        }
-                    });
-
+                    }
 
 
 
@@ -590,7 +594,23 @@ function BindCRUDEvents(element, clID, triggerModal) {
     });
 }
 
-function AddFieldToForm(formID, clID, phID) { 
+function AddFieldToForm(formID, clID, phID) {
+
+}
+
+function DoesFieldExist(labelName) {
+
+    ret = false;
+    $("div[class=set]").each(function () {
+        setLabel = $(this).find("span").html();
+
+        if (setLabel == labelName) {
+            ret = true;
+            return false;
+        }
+    });
+
+    return ret;
 
 }
 

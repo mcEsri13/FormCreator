@@ -143,14 +143,6 @@ namespace FormGeneratorAdmin
             return SQL_SP_Exec("[spr_GetAllFormDataByFormID]", con, paramNames, paramValues);
         }
 
-        public DataSet GetAllFormDataByFormID_Pagination(string formID)
-        {
-            String[] paramNames = { "Form_ID" };
-            Object[] paramValues = { formID };
-
-            return SQL_SP_Exec("[spr_GetAllFormDataByFormID_Pagination]", con, paramNames, paramValues);
-        }
-
         public DataTable GetTemplateByFormID(string FormID)
         {
             String[] paramNames = { "Form_ID" };
@@ -213,19 +205,6 @@ namespace FormGeneratorAdmin
             Object[] paramValues = { controlList_ID, FormID, PlaceholderName, FormControl_ID, displayText };
 
             DataSet ds = SQL_SP_Exec("[spr_AddControlToPlaceHolder]", con, paramNames, paramValues);
-
-            if (ds.Tables.Count > 0)
-                return ds.Tables[0].Rows[0][0].ToString();
-            else
-                return null;
-        }
-
-        public string AddControlToPagePlaceHolder(string controlList_ID, string FormID, string PlaceholderName, string FormControl_ID, string displayText, string pageName)
-        {
-            String[] paramNames = { "ControlList_ID", "FormID", "PlaceholderName", "FormControl_ID", "DisplayText", "PageName" };
-            Object[] paramValues = { controlList_ID, FormID, PlaceholderName, FormControl_ID, displayText, pageName };
-
-            DataSet ds = SQL_SP_Exec("[spr_AddControlToPagePlaceHolder]", con, paramNames, paramValues);
 
             if (ds.Tables.Count > 0)
                 return ds.Tables[0].Rows[0][0].ToString();

@@ -1,0 +1,6 @@
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\FormGeneratorAdmin.dll
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\FormGeneratorAdmin.pdb
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\Newtonsoft.Json.dll
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\Newtonsoft.Json.xml
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Release\FormGeneratorAdmin.dll
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Release\FormGeneratorAdmin.pdb

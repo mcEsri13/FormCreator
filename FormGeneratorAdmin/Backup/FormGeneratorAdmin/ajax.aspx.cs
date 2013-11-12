@@ -85,14 +85,6 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static string AddControlToPagePlaceHolder(string controlList_ID, string formID, string placeholderName, string formControl_ID, string text, string pageName)
-        {
-            FormGeneratorData data = new FormGeneratorData();
-
-            return data.AddControlToPagePlaceHolder(controlList_ID, formID, placeholderName, formControl_ID, text, pageName);
-        }
-
-        [WebMethod]
         public static string GetElementActions(string formControl_ID)
         {
             FormGeneratorData data = new FormGeneratorData();
@@ -130,25 +122,6 @@ namespace FormGeneratorAdmin
             ds.Tables[4].TableName = "elementActions";
             ds.Tables[5].TableName = "formActions";
             ds.Tables[6].TableName = "elementBehaviors";
-
-            return JsonConvert.SerializeObject(ds, Formatting.Indented);
-        }
-
-        [WebMethod]
-        public static string GetAllFormDataByFormID_Pagination(string formID)
-        {
-            FormGeneratorData data = new FormGeneratorData();
-
-            DataSet ds = data.GetAllFormDataByFormID_Pagination(formID);
-
-            ds.Tables[0].TableName = "formData";
-            ds.Tables[1].TableName = "formPages";
-            ds.Tables[2].TableName = "formContainers";
-            ds.Tables[3].TableName = "formElements";
-            ds.Tables[4].TableName = "formChildElements";
-            ds.Tables[5].TableName = "elementActions";
-            ds.Tables[6].TableName = "formActions";
-            ds.Tables[7].TableName = "elementBehaviors";
 
             return JsonConvert.SerializeObject(ds, Formatting.Indented);
         }
