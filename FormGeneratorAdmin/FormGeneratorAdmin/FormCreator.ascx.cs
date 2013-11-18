@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Web.UI.HtmlControls;
+using System.Configuration;
+using Esri.ICASTokenManager;
+using esri.com.Saml;
 
 namespace FormGeneratorAdmin
 {
@@ -13,7 +16,12 @@ namespace FormGeneratorAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+
+            HttpCookie myCookie = new HttpCookie("IESRISESSIONID");
+            myCookie = Request.Cookies["IESRISESSIONID"];
+
+            // Read the cookie information and display it.
+            if (myCookie != null)
             {
                 FormGeneratorData formData = new FormGeneratorData();
 
@@ -37,8 +45,39 @@ namespace FormGeneratorAdmin
                     pnlFields.Controls.Add(span);
 
                     i++;
+                }             
+            }
+            else
+            {
+                string hasChecked = (string)Session["HasChecked"];
+
+                if (hasChecked == null)
+                {
+                    string certificate = ConfigurationManager.AppSettings[AccountSettings.CertificateKey];
+                    string idpSsoTargetUrl = ConfigurationManager.AppSettings[AccountSettings.IdpSsoTargetUrlKey];
+                    string assertionConsumerUrl = ConfigurationManager.AppSettings[AppSettings.AssertionConsumerServiceUrlKey];
+                    string issuer = ConfigurationManager.AppSettings[AppSettings.IssuerKey];
+
+                    var accountSettings = new AccountSettings(certificate, idpSsoTargetUrl);
+                    var samlResponse = new Response(accountSettings);
+                    AuthRequest req = new AuthRequest(new AppSettings(assertionConsumerUrl, issuer), accountSettings);
+
+                    var redirectUrl = accountSettings.IdpSsoTargetUrl + "?SAMLRequest=" + Server.UrlEncode(req.GetRequest(AuthRequest.AuthRequestFormat.Base64));
+                    string relayState = Utils.ParseRelayState(Request);
+
+                    Session["HasChecked"] = "true";
+
+                    Response.Redirect(redirectUrl);
+                }
+                else 
+                {
+                    Session["HasChecked"] = null;
+                    Response.Write("Not Authorized");
+                    Response.End();
                 }
             }
+
         }
+
     }
 }

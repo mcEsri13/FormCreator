@@ -13,14 +13,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="ajax.aspx">
       <publishTime>09/23/2013 11:02:42</publishTime>
     </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>11/15/2013 11:04:31</publishTime>
+    </File>
     <File Include="bin/Esri.FormGenerator.dll">
       <publishTime>10/01/2013 10:36:12</publishTime>
     </File>
     <File Include="bin/FormGeneratorAdmin.dll">
-      <publishTime>11/07/2013 15:09:18</publishTime>
+      <publishTime>11/18/2013 11:30:22</publishTime>
+    </File>
+    <File Include="bin/ICASTokenManager.dll">
+      <publishTime>11/15/2013 11:12:51</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>11/15/2013 10:18:43</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>10/02/2013 15:17:06</publishTime>
+    </File>
+    <File Include="bin/Saml.dll">
+      <publishTime>11/18/2013 11:30:21</publishTime>
+    </File>
+    <File Include="Consume.aspx">
+      <publishTime>11/15/2013 11:48:28</publishTime>
     </File>
     <File Include="Default.aspx">
       <publishTime>09/23/2013 06:58:04</publishTime>
@@ -37,11 +52,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="FormCreator_old.css">
       <publishTime>10/03/2013 17:45:02</publishTime>
     </File>
+    <File Include="log4net.config">
+      <publishTime>11/15/2013 10:54:01</publishTime>
+    </File>
     <File Include="packages.config">
       <publishTime>10/02/2013 15:17:07</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/07/2013 15:09:19</publishTime>
+      <publishTime>11/18/2013 11:30:23</publishTime>
     </File>
   </ItemGroup>
 </Project>

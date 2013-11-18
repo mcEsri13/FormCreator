@@ -5,16 +5,47 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormGeneratorAdmin", "FormGeneratorAdmin\FormGeneratorAdmin.csproj", "{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saml", "..\..\..\..\Desktop\TFS Projects\SAML\SSOSaml\Saml.csproj", "{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}"
+EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://red-app-tfs-p02:8080/tfs/ist
+		SccProjectUniqueName0 = ..\\..\\..\\..\\Desktop\\TFS\u0020Projects\\SAML\\SSOSaml\\Saml.csproj
+		SccProjectName0 = $/IAM/DEV/SSOSaml
+		SccAuxPath0 = http://red-app-tfs-p02:8080/tfs/ist
+		SccLocalPath0 = ..\\..\\..\\..\\Desktop\\TFS\u0020Projects\\SAML\\SSOSaml
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		IntegrationDEV|Any CPU = IntegrationDEV|Any CPU
+		Production|Any CPU = Production|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Staging|Any CPU = Staging|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.IntegrationDEV|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.IntegrationDEV|Any CPU.Build.0 = Release|Any CPU
+		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.Production|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.Production|Any CPU.Build.0 = Release|Any CPU
 		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBFF76D-72C1-4AC3-B8E5-B0E9DF02C332}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.IntegrationDEV|Any CPU.ActiveCfg = IntegrationDEV|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.IntegrationDEV|Any CPU.Build.0 = IntegrationDEV|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.Production|Any CPU.Build.0 = Production|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{BFB9F43D-958C-4D7A-B58E-1588BB25ABED}.Staging|Any CPU.Build.0 = Staging|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

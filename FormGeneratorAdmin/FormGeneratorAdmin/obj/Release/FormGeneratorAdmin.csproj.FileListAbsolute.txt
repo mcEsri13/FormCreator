@@ -4,3 +4,12 @@ C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorA
 C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\Newtonsoft.Json.xml
 C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Release\FormGeneratorAdmin.dll
 C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Release\FormGeneratorAdmin.pdb
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\ICASTokenManager.dll
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\log4net.dll
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\Saml.dll
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\EntityFramework.dll
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\Saml.pdb
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\ICASTokenManager.pdb
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\log4net.xml
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\bin\EntityFramework.xml
+C:\Users\jose7275\Documents\GitHub\FormCreator\FormGeneratorAdmin\FormGeneratorAdmin\obj\Release\FormGeneratorAdmin.csprojResolveAssemblyReference.cache
