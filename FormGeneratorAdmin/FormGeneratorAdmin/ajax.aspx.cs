@@ -45,11 +45,11 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static string AddFormControlGroupItem(string formControl_ID, string controlList_ID, string text, string value, string formControlGroup_ID)
+        public static string AddFormControlGroupItem(string formControl_ID, string text, string value, string formControlGroup_ID)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            return GetJson(data.AddFormControlGroupItem(formControl_ID, controlList_ID, text, value, formControlGroup_ID));
+            return GetJson(data.AddFormControlGroupItem(formControl_ID, text, value, formControlGroup_ID));
         }
 
         [WebMethod]
@@ -164,11 +164,11 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static string AddForm(string formName, string sitecoreID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID)
+        public static string AddForm(string formName, string sitecoreID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID, string aprimoID, string aprimoSubject)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            DataTable dtResult = data.AddForm(formName, sitecoreID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID);
+            DataTable dtResult = data.AddForm(formName, sitecoreID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID, aprimoID, aprimoSubject);
 
             return GetJson(dtResult);
         }
@@ -246,6 +246,21 @@ namespace FormGeneratorAdmin
             FormGeneratorData data = new FormGeneratorData();
             return GetJson( data.GetControlActionTypes());
          }
+
+        [WebMethod]
+        public static int SaveCustomGroupInfo(string formControl_ID, string customLabel, string aprimoColumn)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+            return data.SaveCustomGroupInfo(formControl_ID, customLabel, aprimoColumn);
+        }
+        
+        [WebMethod]
+        public static string GetCustomGroupInfoByFormControl_ID(string formControl_ID)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            return GetJson( data.GetCustomGroupInfoByFormControl_ID(formControl_ID));
+        }
 
         [WebMethod]
         public static int SaveFormElementSetting(string formControl_ID, string controlProperty_ID, string settingValue)

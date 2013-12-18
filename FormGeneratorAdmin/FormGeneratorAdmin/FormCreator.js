@@ -51,6 +51,9 @@ $(document).ready(function () {
         $("#txtTrackingSource").val($("#divTrackingSource").text());
         $("#txtHeader").val($("#divHeader").text());
 
+        $("#txtAprimoID").val($("#divAprimoID").text());
+        $("#txtAprimoSubject").val($("#divAprimoSubject").text());
+
         $("#ddlLayout option").filter(function () {
             return $(this).text() == $("#divTemplate").text();
         }).prop('selected', true);
@@ -77,13 +80,13 @@ $(document).ready(function () {
         fcid = $("#hidSetFC_ID").val();
         //fcgid = $(this).attr("fcgid");
         fcgid = '0';
-
+        
         if (text != "" || value != "") {
 
             $.ajax({
                 type: "POST",
                 url: "ajax.aspx/AddFormControlGroupItem",
-                data: "{'formControl_ID':'" + fcid + "', 'controlList_ID':'32','text':'" + text + "','value':'" + value + "','formControlGroup_ID':'" + fcgid + "'}",
+                data: "{'formControl_ID':'" + fcid + "','text':'" + text + "','value':'" + value + "','formControlGroup_ID':'" + fcgid + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
@@ -192,6 +195,9 @@ $(document).ready(function () {
         source = $("#txtTrackingSource").val();
         tform = $("#txtTrackingForm").val();
 
+        aprimoID = $("#txtAprimoID").val();
+        aprimoSubject = $("#txtAprimoSubject").val();
+
         header = $("#txtHeader").val();
         templateID = $("#ddlLayout").val();
         styleID = $("#ddlStyle").val();
@@ -199,7 +205,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "ajax.aspx/AddForm",
-            data: "{'formName':'" + formName + "', 'sitecoreID':'" + sitecoreID + "', 'trackingCampaign':'" + campaign + "', 'trackingSource':'" + source + "', 'trackingForm':'" + tform + "', 'header':'" + header + "', 'templateID':'" + templateID + "', 'styleID':'" + styleID + "'}",
+            data: "{'formName':'" + formName + "', 'sitecoreID':'" + sitecoreID + "', 'trackingCampaign':'" + campaign + "', 'trackingSource':'" + source + "', 'trackingForm':'" + tform + "', 'header':'" + header + "', 'templateID':'" + templateID + "', 'styleID':'" + styleID + "', 'aprimoID':'" + aprimoID + "', 'aprimoSubject':'" + aprimoSubject + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
@@ -235,6 +241,9 @@ $(document).ready(function () {
                     $("#divTrackingCampaign").text(j[0].Tracking_Campaign);
                     $("#divTrackingForm").text(j[0].Tracking_Form);
                     $("#divTrackingSource").text(j[0].Tracking_Source);
+                    
+                    $("#divAprimoID").text(j[0].Aprimo_ID);
+                    $("#divAprimoSubject").text(j[0].Aprimo_Subject);
 
                     $("#divHeader").text(j[0].Header);
                     $("#divTemplate").text(j[0].TemplateName);
@@ -247,6 +256,8 @@ $(document).ready(function () {
                     $("#txtTrackingCampaign").val("");
                     $("#txtTrackingForm").val("");
                     $("#txtTrackingSource").val("");
+                    $("#txtAprimoID").val("");
+                    $("#txtAprimoSubject").val("");
                     $("#hidFormID").val("");
                     $("#txtHeader").val("");
                     $("#ddlLayout").val("-1");
@@ -303,6 +314,9 @@ $(document).ready(function () {
                         $("#divTrackingForm").text(j.formData[0].Tracking_Form);
                         $("#divTrackingSource").text(j.formData[0].Tracking_Source);
 
+                        $("#divAprimoID").text(j.formData[0].Aprimo_ID);
+                        $("#divAprimoSubject").text(j.formData[0].Aprimo_Subject);
+
                         $("#divHeader").text(j.formData[0].Header);
                         $("#divTemplate").text(j.formData[0].TemplateName);
                         $("#divStyle").text(j.formData[0].StyleName);
@@ -351,6 +365,24 @@ $(document).ready(function () {
                                 },
                                 error: function (msg) {
                                     alert('load fail!');
+                                }
+                            });
+
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax.aspx/GetCustomGroupInfoByFormControl_ID",
+                                data: "{'formControl_ID':'" + fcid + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+                                    
+                                    var j = $.parseJSON(data.d);
+
+                                    $('#txtCustomGroupLabel').val(j[0].CustomLabel);
+                                    $('#txtCustomGroupAprimoColumnName').val(j[0].AprimoColumn);
+                                },
+                                error: function (msg) {
+                                    alert('Group Info load fail!');
                                 }
                             });
                         });
@@ -411,11 +443,38 @@ $(document).ready(function () {
                                 $("#mSubmit").dialog("open");
                                 $("#hidSetAction").val(fcid);
                             }
-                            if (clid == '32') {
+                            if (clid == '32' || clid == '1034' || clid == '1036') {
                                 $("#mFormControlGroup").dialog("open");
                                 $("#hidSetFC_ID").val(fcid);
                             }
                             $(".ui-widget-overlay").css("background", "#000");
+                        });
+
+                        $("#btnSaveCustomInfo").click(function () {
+
+                            current = $(this);
+                            formControlID = current.parent().attr("fcgid");
+                            customLabel = $('#txtCustomGroupLabel').val();
+                            customAprimoColumn = $('#txtCustomGroupAprimoColumnName').val();
+
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax.aspx/SaveCustomGroupInfo",
+                                data: "{'formControl_ID':'" + fcid + "','customLabel':'" + customLabel + "','aprimoColumn':'" + customAprimoColumn + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+                                    $("#mFormControlGroup").dialog('close');
+                                    $('#txtCustomGroupLabel').val('');
+                                    $('#txtCustomGroupAprimoColumnName').val('');
+                                    $('#txtFCGItemText').val('');
+                                    $('#txtFCGItemValue').val('');
+                                },
+                                error: function (msg) {
+                                    alert('Couldnt save info!');
+                                }
+                            });
+
                         });
 
                     }
@@ -452,6 +511,8 @@ function DragDropInit() {
                 label = ui.draggable.html();
                 fcid = "";
 
+                alert("clID = " + clID + ", phID = " + phID + ", pageName = " + pageName + ", formID = " + formID + ", label = " + label );
+
                 if (!DoesFieldExist(label)) {
 
                     if (ui.draggable[0].localName == 'span') {
@@ -463,33 +524,37 @@ function DragDropInit() {
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (data) {
-
+                                alert("success. fcid = " + data.d);
                                 fcid = data.d;
                                 current.attr("fcid", fcid);
 
                                 if (ui.draggable.attr("ctype") == "TextBox") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='text' /><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='text' /><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate</div>");
 
                                     BindCRUDEvents(current, ui.draggable.attr("clID"), null);
                                 }
                                 if (ui.draggable.attr("ctype") == "Multi-line") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><textarea rows='6' cols='25'></textarea><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><textarea rows='6' cols='25'></textarea><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate</div>");
 
                                     BindCRUDEvents(current, ui.draggable.attr("clID"), null);
                                 }
                                 else if (ui.draggable.attr("ctype") == "DropDownList") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><select><option value='-1'>select</option></select><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate</div>");
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><select><option value='-1'>select</option></select><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate</div>");
 
                                     BindCRUDEvents(current, ui.draggable.attr("clID"), null);
                                 }
                                 else if (ui.draggable.attr("ctype") == "Group") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span>Group of Checkboxes<input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + ui.draggable.attr('clID') + "' class='doValidate' checked >validate<input type='button' class='btnCBGroup' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'></div>");
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span>" + label + "<input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate<input type='button' class='btnCBGroup' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'></div>");
 
                                     BindCRUDEvents(current, ui.draggable.attr("clID"), "mFormControlGroup");
+                                }
+                                else if (ui.draggable.attr("ctype") == "CheckboxList") {
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><div>" + label + "</div><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate</div>");
 
+                                    BindCRUDEvents(current, ui.draggable.attr("clID"), null);
                                 }
                                 else if (ui.draggable.attr("ctype") == "Submit") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='button' value='Submit' /><input type='button' class='remove' value='X' ><input type='button' class='btnEdit' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'>");
+                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='button' value='Submit' /><input type='button' class='remove' value='X' ><input type='button' class='btnEdit' value='Edit' id='btn_edit_" + clID + "'>");
 
                                     BindCRUDEvents(current, ui.draggable.attr("clID"), "mSubmit");
                                 }
@@ -706,7 +771,9 @@ function createElement(element) {
     else if (type == "Submit") 
         return "<input  type='button' value='Submit' /><input type='button' class='remove' value='X'  ><input type='button' class='btnEdit' value='Edit' ></div>";
     else if (type == "Group") 
-        return "<input  type='checkbox' />checkbox group<input type='button' class='remove' value='X'  ><input type='button' class='btnEdit' value='Edit' fcid='" + element.FormControl_ID + "' hk='CBtrigger' ></div>";
+        return element.ControlName + "<input type='button' class='remove' value='X'  ><input type='checkbox' class='doValidate' " + validate + " >validate<input type='button' class='btnEdit' value='Edit' fcid='" + element.FormControl_ID + "' hk='CBtrigger' >";
+    else if (type == "CheckboxList") 
+        return element.ControlName + "&nbsp;<input type='button' class='remove' value='X'  ><input type='checkbox' class='doValidate' " + validate + " >validate";
 }
 
 function createHeader(headerName) {
@@ -808,3 +875,4 @@ function FCGItemsRemoveInit() {
 
     });
 }
+

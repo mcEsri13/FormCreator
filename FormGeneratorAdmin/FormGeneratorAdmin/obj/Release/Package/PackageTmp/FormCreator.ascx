@@ -93,7 +93,17 @@
                 <th>Remove</th>
             </tr>
         </table><br />
-        <input type="button" class="closeDialog" value="Done" />
+        <table id="customGroupInfo">
+            <tr>
+                <td>Text</td>
+                <td><input type="text" id="txtCustomGroupLabel" /></td>
+            </tr>
+            <tr>
+                <td>Aprimo Column Name</td>
+                <td><input type="text" id="txtCustomGroupAprimoColumnName" /></td>
+            </tr>
+        </table>
+        <input type="button" id="btnSaveCustomInfo"  value="Done" /><br />
     </div><!--end FCG -->
     <div id="mRadioGroup">
         <h1>Radio Edit!</h1>

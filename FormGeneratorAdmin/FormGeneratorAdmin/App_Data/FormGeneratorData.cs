@@ -86,10 +86,10 @@ namespace FormGeneratorAdmin
             DataSet ds = SQL_SP_Exec("[spr_LogAction]", con, paramNames, paramValues);
         }
 
-        public DataTable AddForm(string name, string itemID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID)
+        public DataTable AddForm(string name, string itemID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID, string aprimoID, string aprimoSubject)
         {
-            String[] paramNames = { "Name", "ItemID", "TrackingCampaign", "TrackingSource", "TrackingForm", "Header", "TemplateID", "StyleID" };
-            Object[] paramValues = { name, itemID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID };
+            String[] paramNames = { "Name", "ItemID", "TrackingCampaign", "TrackingSource", "TrackingForm", "Header", "TemplateID", "StyleID", "AprimoID", "AprimoSubject" };
+            Object[] paramValues = { name, itemID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID, aprimoID, aprimoSubject };
 
             DataSet ds = SQL_SP_Exec("[spr_AddForm]", con, paramNames, paramValues);
 
@@ -244,6 +244,32 @@ namespace FormGeneratorAdmin
                 return Convert.ToInt32(ds.Tables[0].Rows[0][0]);
             else
                 return 0;
+        }
+
+        public int SaveCustomGroupInfo(string formControl_ID, string customLabel, string aprimoColumn)
+        {
+            String[] paramNames = { "FormControl_ID", "CustomLabel", "AprimoColumn" };
+            Object[] paramValues = { formControl_ID, customLabel, aprimoColumn };
+
+            DataSet ds = SQL_SP_Exec("[spr_SaveCustomGroupInfo]", con, paramNames, paramValues);
+
+            if (ds.Tables.Count > 0)
+                return Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+            else
+                return 0;
+        }
+
+        public DataTable GetCustomGroupInfoByFormControl_ID(string formControl_ID)
+        {
+            String[] paramNames = { "FormControl_ID" };
+            Object[] paramValues = { formControl_ID };
+
+            DataSet ds = SQL_SP_Exec("[spr_GetCustomGroupInfoByFormControl_ID]", con, paramNames, paramValues);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
         }
 
         public string GetControlProperty(object FormControl_ID, string PropertyName)
@@ -459,10 +485,10 @@ namespace FormGeneratorAdmin
             DataSet ds = SQL_SP_Exec("[spr_GetFormControlByFormControl_ID]", con, paramNames, paramValues);
         }
 
-        public DataTable AddFormControlGroupItem(string formControl_ID, string controlList_ID, string text, string value, string formControlGroup_ID)
+        public DataTable AddFormControlGroupItem(string formControl_ID, string text, string value, string formControlGroup_ID)
         {
-            String[] paramNames = { "FormControl_ID", "ControlList_ID", "Text", "Value", "FormControlGroup_ID" };
-            Object[] paramValues = { formControl_ID, controlList_ID, text, value, formControlGroup_ID };
+            String[] paramNames = { "FormControl_ID", "Text", "Value", "FormControlGroup_ID" };
+            Object[] paramValues = { formControl_ID, text, value, formControlGroup_ID };
 
             DataSet ds = SQL_SP_Exec("[spr_AddFormControlGroupItem]", con, paramNames, paramValues);
 
