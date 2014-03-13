@@ -2,10 +2,10 @@
 <script type="text/javascript" src="http://api.demandbase.com/autocomplete/widget.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-<script type="text/javascript" src="FormCreator.js"></script>
+<script type="text/javascript" src="js/FormCreator.js"></script>
 
 <link href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
-<link href="FormCreator.css" type="text/css" rel="stylesheet" />
+<link href="css/FormCreator.css" type="text/css" rel="stylesheet" />
 
 <div id="divlogIn">
     <div class="login">
@@ -38,26 +38,30 @@
     <input type="button" class="closeButton" value="Close" />
 </div>
 <div id="divPreviewFormInfo">
-    <asp:DropDownList ID="ddlFormList" runat="server" ClientIDMode="Static">
-    </asp:DropDownList><br />
-    <span>Form Name</span><div id="divFormName"></div><br />
-    <span>Sitecore ID</span><div id="divSCID"></div><br />
-    <span>Date Modified</span><div id="divDateCreated"></div><br />
+        <asp:DropDownList ID="ddlFormList" runat="server" ClientIDMode="Static">
+        </asp:DropDownList><br />
+        <span>Form Name</span><div id="divFormName"></div><br />
+        <span>Sitecore ID</span><div id="divSCID"></div><br />
+        <span>Date Modified</span><div id="divDateCreated"></div><br />
 
-    <span>Tracking Campaign</span><div id="divTrackingCampaign"></div><br />
-    <span>Tracking Form</span><div id="divTrackingForm"></div><br />
-    <span>Tracking Source</span><div id="divTrackingSource"></div><br />
+        <span>Tracking Campaign</span><div id="divTrackingCampaign"></div><br />
+        <span>Tracking Form</span><div id="divTrackingForm"></div><br />
+        <span>Tracking Source</span><div id="divTrackingSource"></div><br />
 
-    <span>Aprimo ID</span><div id="divAprimoID"></div><br />
-    <span>Aprimo Subject</span><div id="divAprimoSubject"></div><br />
+        <span>Aprimo ID</span><div id="divAprimoID"></div><br />
+        <span>Aprimo Subject</span><div id="divAprimoSubject"></div><br />
 
-    <span>Header</span><div id="divHeader"></div><br />
-    <span>Template</span><div id="divTemplate"></div><br />
-    <span>Style</span><div id="divStyle"></div><br />
+        <span>Header</span><div id="divHeader"></div><br />
+        <span>Template</span><div id="divTemplate"></div><br />
+        <span>Style</span><div id="divStyle"></div><br />
 
-    <span>Item Path</span><div id="divItemPath"></div><br />
-    <input type="button" id="btnEditFormInfo" value="Edit" />
-    <input type="button" class="closeButton" value="Close" />
+        <span>Item Path</span><div id="divItemPath"></div><br />
+        <input type="button" id="btnEditFormInfo" value="Edit" />
+        <input type="button" class="closeButton" value="Close" />
+        <input type="button" class="collapse" value="Hide Form Settings" />
+</div>
+<div id="divHiddenPreview">
+    <input type="button" class="collapse" value="Show Form Settings" />
 </div>
 <div id="divEditForm">
     <div id="divEditing">
@@ -131,10 +135,85 @@
                 <th>Remove</th>
             </tr>
         </table><br />
+        <div id="divEmailDetails">
+            <table id="tblEmailDetails" class="defaultTable">
+                <tr>
+                    <td>To</td>
+                    <td><input id='txtTo' type='text' /></td>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <td><input id='txtFrom' type='text' /></td>
+                </tr>
+                <tr>
+                    <td>Subject</td>
+                    <td><input id='txtSubject' type='text' /></td>
+                </tr>
+                <tr>
+                    <td>CC</td>
+                    <td><input id='txtCC' type='text' /></td>
+                </tr>
+                <tr>
+                    <td><input id='btnSaveCustomEmail' type='button' value='Save' /></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
         <input type="button" class="closeDialog" value="Done" />
     </div><!--end checkbox group-->
-    <div id="mCustomDropdown">
-        <h1>Dropdown Edit!</h1><br />
-        <input type="button" class="closeDialog" value="Done" />
-    </div><!--end checkbox group-->
+    <div id="mCustomField">
+        <input type="button" class="closeCustomField" value="Done" />
+        <br />
+        <br />
+        <input type="hidden" id="hidCustomFC_ID" />
+
+            Field<br />
+            <asp:DropDownList ID="ddlControlTypes" runat="server" ClientIDMode="Static"></asp:DropDownList>
+            &nbsp;&nbsp;<input type="checkbox" id="cbIsSpecial" />Special Field
+            <br />
+            <br />
+        <div class="aprimoFields">
+        <table>
+            <tr>
+                <td>
+                    Label<br />
+                    <asp:TextBox ID="txtLabelName" runat="server" ClientIDMode="Static"></asp:TextBox>
+                </td>
+                <td>
+                    Aprimo Column<br />
+                    <asp:TextBox ID="txtCustomAprimoColumn" runat="server" ClientIDMode="Static"></asp:TextBox>
+                </td>
+            </tr>
+        </table>
+        </div>
+        <br />
+        <br />
+        <div id="divCustomDLL">
+            <table id="cf_TextValue">
+                <tr>
+                    <td>
+                        Text<br />
+                        <input type="text" id="txtCustomText" />
+                    </td>
+                    <td>
+                        Value<br />
+                        <input type="text" id="txtCustomValue" />
+                    </td>
+                    <td>
+                        <br />
+                        <input id="btnCustomAdd" type="button" value="Add" />
+                    </td>
+                </tr>
+            </table>
+            <br />            
+            <table id="tblCustomDropdownOptions">
+                <tr>
+                    <th>Text</th>
+                    <th>Value</th>
+                    <th>Remove</th>
+                </tr>
+            </table>
+
+        </div>
+    </div><!--end edit custom field-->
 <!--end edit modals-->

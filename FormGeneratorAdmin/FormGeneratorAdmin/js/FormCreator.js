@@ -1,11 +1,61 @@
 ﻿
 $(document).ready(function () {
+    //Textboxes
+    var txtFormName         = $("#txtFormName");
+    var txtSitecoreID       = $("#txtSitecoreID");
+    var txtDateCreated      = $("#txtDateCreated");
+    var txtTrackingCampaign = $("#txtTrackingCampaign");
+    var txtTrackingForm     = $("#txtTrackingForm");
+    var txtTrackingSource   = $("#txtTrackingSource");
+    var txtHeader           = $("#txtHeader");
+    var txtAprimoID         = $("#txtAprimoID");
+    var txtAprimoSubject    = $("#txtAprimoSubject");
+    var txtUsername         = $("#txtUsername");
+    var txtPassword         = $("#txtPassword");
+
+    //Labels
+    var divFormName         = $("#divFormName");
+    var divSCID             = $("#divSCID");
+    var divDateCreated      = $("#divDateCreated");
+    var divTrackingCampaign = $("#divTrackingCampaign");
+    var divTrackingForm     = $("#divTrackingForm");
+    var divTrackingSource   = $("#divTrackingSource");
+    var divAprimoID         = $("#divAprimoID");
+    var divAprimoSubject    = $("#divAprimoSubject");
+    var divHeader           = $("#divHeader");
+    var divTemplate         = $("#divTemplate");
+    var divStyle            = $("#divStyle");
+
+    //Modal
+    var hiddenModalForm     = $("#hiddenModalForm");
+
+    //divs
+    var divlogIn            = $("#divlogIn");
+    var divCreateOrEdit     = $("#divCreateOrEdit");
+    var divCreateForm       = $("#divCreateForm");
+    var divPreviewFormInfo  = $("#divPreviewFormInfo");
+    var divEditForm         = $("#divEditForm");
+
+    //hidden
+
+
+
+    $('.collapse').click(function () {
+        if ($('#divPreviewFormInfo').css('display') == 'none') {
+            $('#divPreviewFormInfo').show();
+            $('#divHiddenPreview').hide();
+        }
+        else {
+            $('#divPreviewFormInfo').hide();
+            $('#divHiddenPreview').show();
+        }
+    });
 
     $("#btnLogin").click(function () {
 
-        username = $("#txtUsername").val();
-        password = $("#txtPassword").val();
-
+        var username = txtUsername.val();
+        var password = txtPassword.val();
+        
         $.ajax({
             type: "POST",
             url: "ajax.aspx/LogIn",
@@ -23,8 +73,43 @@ $(document).ready(function () {
                 alert(msg);
             }
         });
+    });
 
+    $(".closeCustomField").click(function () {
 
+        var fcid = $("#hidCustomFC_ID").val();
+        var customLabel = $("#txtLabelName").val();
+        var customControlType = $("#ddlControlTypes").val();
+        var aprimoColumn = $("#txtCustomAprimoColumn").val();
+        var isSpecial = $("#cbIsSpecial").is(":checked");
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.aspx/SaveCustomFieldInfo",
+            data: "{'formControl_ID':'" + fcid + "','customLabel':'" + customLabel + "','customControlType':'" + customControlType + "','aprimoColumn':'" + aprimoColumn + "','isSpecial':'" + String(isSpecial) + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                $("#mCustomField").dialog('close');
+
+                $("#hidCustomFC_ID").val("");
+                $("#txtLabelName").val("");
+                $("#ddlControlTypes").val("-1");
+                $("#txtCustomAprimoColumn").val("");
+
+                $("#tblCustomDropdownOptions").empty();
+
+                $("#divCustomDLL").hide();
+
+                $("#ddlFormList").trigger("change");
+            },
+            error: function (msg) {
+
+                alert("Couldnt save custom field info!");
+                return;
+            }
+        });
     });
 
     $(".closeButton").click(function () {
@@ -43,23 +128,23 @@ $(document).ready(function () {
 
     $("#btnEditFormInfo").click(function () {
 
-        $("#txtFormName").val($("#divFormName").text());
-        $("#txtSitecoreID").val($("#divSCID").text());
-        $("#txtDateCreated").val($("#divDateCreated").text());
-        $("#txtTrackingCampaign").val($("#divTrackingCampaign").text());
-        $("#txtTrackingForm").val($("#divTrackingForm").text());
-        $("#txtTrackingSource").val($("#divTrackingSource").text());
-        $("#txtHeader").val($("#divHeader").text());
+        txtFormName.val(divFormName.text());
+        txtSitecoreID.val(divSCID.text());
+        txtDateCreated.val(divDateCreated.text());
+        txtTrackingCampaign.val(divTrackingCampaign.text());
+        txtTrackingForm.val(divTrackingForm.text());
+        txtTrackingSource.val(divTrackingSource.text());
+        txtHeader.val(divHeader.text());
 
-        $("#txtAprimoID").val($("#divAprimoID").text());
-        $("#txtAprimoSubject").val($("#divAprimoSubject").text());
+        $txtAprimoID.val(divAprimoID.text());
+        txtAprimoSubject.val(divAprimoSubject.text());
 
         $("#ddlLayout option").filter(function () {
-            return $(this).text() == $("#divTemplate").text();
+            return $(this).text() == divTemplate.text();
         }).prop('selected', true);
 
         $("#ddlStyle option").filter(function () {
-            return $(this).text() == $("#divStyle").text();
+            return $(this).text() == divStyle.text();
         }).prop('selected', true);
 
         $("#hidFormID").val($("#ddlFormList").val());
@@ -72,14 +157,11 @@ $(document).ready(function () {
         alert("checked!");
     });
 
-
-
     $("#btnAddFCGItem").click(function () {
-        text = $("#txtFCGItemText").val();
-        value = $("#txtFCGItemValue").val();
-        fcid = $("#hidSetFC_ID").val();
-        //fcgid = $(this).attr("fcgid");
-        fcgid = '0';
+        var text = $("#txtFCGItemText").val();
+        var value = $("#txtFCGItemValue").val();
+        var fcid = $("#hidSetFC_ID").val();
+        var fcgid = '0';
         
         if (text != "" || value != "") {
 
@@ -110,9 +192,46 @@ $(document).ready(function () {
         }
     });
 
+    $("#btnCustomAdd").click(function () {
+        var text = htmlEncode($("#txtCustomText").val());
+        var value = htmlEncode($("#txtCustomValue").val());
+        var fcid = $("#hidCustomFC_ID").val();
+
+        if (text != "" || value != "") {
+
+            $.ajax({
+                type: "POST",
+                url: "ajax.aspx/AddElementOption",
+                data: "{'formControl_ID':'" + fcid + "','text':'" + text + "','value':'" + value + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    
+                    var j = $.parseJSON(data.d);
+                    status = j[0].Status;
+                    coID = j[0].ControlOption_ID;
+
+                    if (status == "Added" || status == "Activated")
+                        $("#tblCustomDropdownOptions").append('<tr><td>' + text + '</td><td>' + value + '</td><td><input class="removeElementOption" type="button" coID="' + coID + '" value="X" /></td></tr>');
+
+                    ElementOptionsRemoveInit();
+
+                    $("#txtCustomText").val('');
+                    $("#txtCustomValue").val('');
+                    
+                },
+                error: function (msg) {
+
+                    alert("Option save fail!");
+                    return;
+                }
+            });
+
+        }
+    });
 
     $("#btnAddAction").click(function () {
-        text = $("#ddlActions option:selected").text();
+        var text = $("#ddlActions option:selected").text();
 
         if ($("#ddlActions").val() != "-1") {
 
@@ -174,6 +293,7 @@ $(document).ready(function () {
 
             ActionRemoveInit();
         }
+
     });
 
     $("#ddlActions").change(function () {
@@ -186,21 +306,30 @@ $(document).ready(function () {
         }
     });
 
+    $("#ddlControlTypes").change(function () {
+        var selected = $(this).val();
+        if (selected == "3" || selected == "1012" || selected == "1015") {
+            $("#divCustomDLL").show();
+        }
+        else {
+            $("#divCustomDLL").hide();
+        }
+    });
 
     $("#btnContinue").click(function () {
 
-        formName = $("#txtFormName").val();
-        sitecoreID = $("#txtSitecoreID").val();
-        campaign = $("#txtTrackingCampaign").val();
-        source = $("#txtTrackingSource").val();
-        tform = $("#txtTrackingForm").val();
+        var formName = htmlEncode(txtFormName.val());
+        var sitecoreID = htmlEncode(txtSitecoreID.val());
+        var campaign = htmlEncode(txtTrackingCampaign.val());
+        var source = htmlEncode(txtTrackingSource.val());
+        var tform = htmlEncode(txtTrackingForm.val());
 
-        aprimoID = $("#txtAprimoID").val();
-        aprimoSubject = $("#txtAprimoSubject").val();
+        var aprimoID = htmlEncode($txtAprimoID.val());
+        var aprimoSubject = htmlEncode(txtAprimoSubject.val());
 
-        header = $("#txtHeader").val();
-        templateID = $("#ddlLayout").val();
-        styleID = $("#ddlStyle").val();
+        var header = htmlEncode(txtHeader.val());
+        var templateID = $("#ddlLayout").val();
+        var styleID = $("#ddlStyle").val();
 
         $.ajax({
             type: "POST",
@@ -234,32 +363,32 @@ $(document).ready(function () {
                     }
 
 
-                    $("#divFormName").text(j[0].Name);
-                    $("#divSCID").text(j[0].ItemID);
-                    $("#divDateCreated").text(j[0].ModificationDate);
+                    divFormName.text(j[0].Name);
+                    divSCID.text(j[0].ItemID);
+                    divDateCreated.text(j[0].ModificationDate);
 
-                    $("#divTrackingCampaign").text(j[0].Tracking_Campaign);
-                    $("#divTrackingForm").text(j[0].Tracking_Form);
-                    $("#divTrackingSource").text(j[0].Tracking_Source);
+                    divTrackingCampaign.text(j[0].Tracking_Campaign);
+                    divTrackingForm.text(j[0].Tracking_Form);
+                    divTrackingSource.text(j[0].Tracking_Source);
                     
-                    $("#divAprimoID").text(j[0].Aprimo_ID);
-                    $("#divAprimoSubject").text(j[0].Aprimo_Subject);
+                    divAprimoID.text(j[0].Aprimo_ID);
+                    divAprimoSubject.text(j[0].Aprimo_Subject);
 
-                    $("#divHeader").text(j[0].Header);
-                    $("#divTemplate").text(j[0].TemplateName);
-                    $("#divStyle").text(j[0].StyleName);
+                    divHeader.text(j[0].Header);
+                    divTemplate.text(j[0].TemplateName);
+                    divStyle.text(j[0].StyleName);
 
 
-                    $("#txtFormName").val("");
-                    $("#txtSitecoreID").val("");
-                    $("#txtDateCreated").val("");
-                    $("#txtTrackingCampaign").val("");
-                    $("#txtTrackingForm").val("");
-                    $("#txtTrackingSource").val("");
-                    $("#txtAprimoID").val("");
-                    $("#txtAprimoSubject").val("");
+                    txtFormName.val("");
+                    txtSitecoreID.val("");
+                    txtDateCreated.val("");
+                    txtTrackingCampaign.val("");
+                    txtTrackingForm.val("");
+                    txtTrackingSource.val("");
+                    $txtAprimoID.val("");
+                    txtAprimoSubject.val("");
                     $("#hidFormID").val("");
-                    $("#txtHeader").val("");
+                    txtHeader.val("");
                     $("#ddlLayout").val("-1");
                     $("#ddlStyle").val("-1");
 
@@ -280,7 +409,9 @@ $(document).ready(function () {
     DialogInit("mSubmit", "btnEdit");
     DialogInit("mFormControlGroup", "btnCBGroup");
     DialogInit("mRadioGroup", "btnRGroup");
-    DialogInit("mCustomDropdown", "btnCustomDD");
+    DialogInit("mCustomField", "btnCustomField");
+
+    $('.ui-dialog-titlebar').hide();
 
 
     $("#ddlFormList").change(function () {
@@ -306,27 +437,27 @@ $(document).ready(function () {
 
                         $('#ddlFormList').val(j.formData[0].Form_ID)
 
-                        $("#divFormName").text(j.formData[0].Name);
-                        $("#divSCID").text(j.formData[0].ItemID);
-                        $("#divDateCreated").text(j.formData[0].ModificationDate);
+                        divFormName.text(htmlDecode(j.formData[0].Name));
+                        divSCID.text(htmlDecode(j.formData[0].ItemID));
+                        divDateCreated.text(htmlDecode(j.formData[0].ModificationDate));
 
-                        $("#divTrackingCampaign").text(j.formData[0].Tracking_Campaign);
-                        $("#divTrackingForm").text(j.formData[0].Tracking_Form);
-                        $("#divTrackingSource").text(j.formData[0].Tracking_Source);
+                        divTrackingCampaign.text(htmlDecode(j.formData[0].Tracking_Campaign));
+                        divTrackingForm.text(htmlDecode(j.formData[0].Tracking_Form));
+                        divTrackingSource.text(htmlDecode(j.formData[0].Tracking_Source));
 
-                        $("#divAprimoID").text(j.formData[0].Aprimo_ID);
-                        $("#divAprimoSubject").text(j.formData[0].Aprimo_Subject);
+                        divAprimoID.text(htmlDecode(j.formData[0].Aprimo_ID));
+                        divAprimoSubject.text(htmlDecode(j.formData[0].Aprimo_Subject));
 
-                        $("#divHeader").text(j.formData[0].Header);
-                        $("#divTemplate").text(j.formData[0].TemplateName);
-                        $("#divStyle").text(j.formData[0].StyleName);
+                        divHeader.text(htmlDecode(j.formData[0].Header));
+                        divTemplate.text(j.formData[0].TemplateName);
+                        divStyle.text(j.formData[0].StyleName);
 
                         //render form
-                        $("#hiddenModalForm").empty();
+                        hiddenModalForm.empty();
 
-                        $("#hiddenModalForm").append(createHeader(j.formData[0].Header));
+                        hiddenModalForm.append(createHeader(j.formData[0].Header));
 
-                        $("#hiddenModalForm").append("<div id='pnlContainer' class='clearfix'></div>");
+                        hiddenModalForm.append("<div id='pnlContainer' class='clearfix'></div>");
 
                         $("#pnlContainer").append(createPages(j.formPages));
 
@@ -341,6 +472,55 @@ $(document).ready(function () {
                         //actions
                         $("#tblActions").empty();
                         $("#tblActions").append(createActions(j.elementActions));
+
+                        //HACK: Find a better place for this...
+                        $("#btnEditActionParams").click(function () {
+
+                            var caid = $(this).attr('data-caid')
+
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax.aspx/GetControlActionParametersByControlAction_ID",
+                                data: "{'ControlAction_ID':'" + caid + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+
+                                    var j = $.parseJSON(data.d);
+
+
+                                    for (i = 0; i < j.ActionParams.length; i++) {
+
+                                        var name = j.ActionParams[i].Name;
+                                        var val = j.ActionParams[i].Value;
+
+                                        switch (name)
+                                        {
+                                            case 'To':
+                                                $('#txtTo').val(val);
+                                                break;
+                                            case 'From':
+                                                $('#txtFrom').val(val);
+                                                break;
+                                            case 'Subject':
+                                                $('#txtSubject').val(val);
+                                                break;
+                                            case 'CC':
+                                                $('#txtCC').val(val);
+                                                break;
+                                        }
+
+                                    }
+
+                                },
+                                error: function (msg) {
+                                    alert('could not load data!');
+                                }
+                            });
+
+                            $("#divEmailDetails").show();
+                        });
+
                         $("#ecasReturnURL").val(j.formActions[0].ECASReturnURL);
                         ActionRemoveInit();
 
@@ -387,6 +567,54 @@ $(document).ready(function () {
                             });
                         });
 
+                        $("input[hk=Customtrigger]").click(function () {
+
+                            fcid = $(this).attr("fcid");
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax.aspx/GetCustomFieldInfo",
+                                data: "{'formControl_ID':'" + fcid + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+
+                                    var j = $.parseJSON(data.d);
+
+                                    var typeID = j.formElements[0].CustomControlType;
+                                    var label = j.formElements[0].CustomLabel;
+                                    var aprimoColumn = j.formElements[0].AprimoColumn;
+                                    var isSpecial = j.formElements[0].IsSpecial;
+
+                                    $('#ddlControlTypes').val(typeID);
+                                    $('#txtLabelName').val(label);
+                                    $('#txtCustomAprimoColumn').val(aprimoColumn);
+
+                                    if(isSpecial == true)
+                                        $('#cbIsSpecial').attr('checked', true);
+                                    else
+                                        $('#cbIsSpecial').attr('checked', false);
+
+                                    $("#tblCustomDropdownOptions").empty();
+                                    $("#tblCustomDropdownOptions").append(createElementOptions(j.formControlOptions));
+
+                                    //$('#mCustomField').css('height', 'auto');
+
+                                    ElementOptionsRemoveInit();
+
+                                    if (typeID == '3' || typeID == '1012' || typeID == '1015') {
+                                        $("#divCustomDLL").show();
+                                    }
+                                    else
+                                        $("#divCustomDLL").hide();
+
+                                },
+                                error: function (msg) {
+                                    alert('Custom Field load fail!');
+                                }
+                            });
+
+                        });
+
                         DragDropInit();
 
                         $(".remove").click(function () {
@@ -404,7 +632,7 @@ $(document).ready(function () {
                                     current.parent().remove();
                                 },
                                 error: function (msg) {
-                                    alert('oops!');
+                                    alert('failed to remove element!');
                                 }
                             });
                         });
@@ -429,7 +657,7 @@ $(document).ready(function () {
 
                                 },
                                 error: function (msg) {
-                                    alert('oops!');
+                                    alert('failed to set element validation!');
                                 }
                             });
                         });
@@ -443,6 +671,10 @@ $(document).ready(function () {
                                 $("#mSubmit").dialog("open");
                                 $("#hidSetAction").val(fcid);
                             }
+                            if (clid == '20') {
+                                $("#mCustomField").dialog("open");
+                                $("#hidCustomFC_ID").val(fcid);
+                            }
                             if (clid == '32' || clid == '1034' || clid == '1036') {
                                 $("#mFormControlGroup").dialog("open");
                                 $("#hidSetFC_ID").val(fcid);
@@ -454,8 +686,8 @@ $(document).ready(function () {
 
                             current = $(this);
                             formControlID = current.parent().attr("fcgid");
-                            customLabel = $('#txtCustomGroupLabel').val();
-                            customAprimoColumn = $('#txtCustomGroupAprimoColumnName').val();
+                            customLabel = htmlEncode($('#txtCustomGroupLabel').val());
+                            customAprimoColumn = htmlEncode($('#txtCustomGroupAprimoColumnName').val());
 
                             $.ajax({
                                 type: "POST",
@@ -477,6 +709,26 @@ $(document).ready(function () {
 
                         });
 
+                        $('.tab-order').css('width', '20px');  //TODO: find out why CSS isn't working
+                        $('.tab-order').blur(function () {
+                            var fcid = $(this).parents().eq(4).attr('fcid');
+                            var tabOrder = isInt($(this).val());
+                            
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax.aspx/SetTabOrder",
+                                data: "{'formControlID':'" + fcid + "','tabOrder':'" + tabOrder + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+
+                                },
+                                error: function (msg) {
+                                    alert('failed to save tabs');
+                                }
+                            });
+
+                        });
                     }
                 },
                 error: function (msg) {
@@ -485,86 +737,103 @@ $(document).ready(function () {
             });
 
         }
+
     });
 
     $("#btnLogOut").click(function () {
         colapseAllExcept("divlogIn");
     });
 
+    $("#btnSaveCustomEmail").click(function () {
+
+        var to = $('#txtTo').val();
+        var from = $('#txtFrom').val();
+        var subject = $('#txtSubject').val();
+        var cc = $('#txtCC').val();
+        //var caType = $("#ddlActions").val();
+        var caType = '6';
+        var fcid = $("#hidSetAction").val();
+        var delim = 'To|' + to + '^From|' + from + '^Subject|' + subject + '^CC|' + cc ;
+
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.aspx/SaveMultipleActionParamsByID",
+            data: "{FormControl_ID:'" + fcid + "',ControlActionType_ID:'" + caType + "',DelimData:'" + delim + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+            },
+            error: function (msg) {
+                alert('failed to save email details');
+            }
+        });
+
+        $("#divEmailDetails").hide();
+        $('#txtTo').val('');
+        $('#txtFrom').val('');
+        $('#txtSubject').val('');
+        $('#txtCC').val('');
+    });
+       
 });
 
 function DragDropInit() {
 
     $(function () {
-        $("#pnlFields span").draggable({
+        $(".draggable").draggable({
             appendTo: "body",
-            helper: "clone"
+            helper: "clone",
+            //connectToSortable: '.sortable',       //Breaks everyting
+            revert: 'invalid'
         });
-        $("#phColumn1, #phColumn2, #phBottom").droppable({
+        
+        $(".form-draggable").draggable({
+            appendTo: "body",
+            helper: "clone",
+            revert: 'invalid'
+        });
+        $(".sortable").droppable({
             drop: function (event, ui) {
 
+                draggedObject = ui.draggable;
                 current = $(this);
-                clID = ui.draggable.attr("clID");
+                clID = draggedObject.attr("clID");
+
+                var fcid;
+                if(draggedObject.attr("fcid") == null)
+                    fcid = "";
+                else
+                    fcid = draggedObject.attr("fcid");
+
                 phID = current.attr("id");
                 pageName = current.parent().attr("id");
                 formID = $("#ddlFormList").val();
-                label = ui.draggable.html();
-                fcid = "";
+                label = draggedObject.html();
 
-                alert("clID = " + clID + ", phID = " + phID + ", pageName = " + pageName + ", formID = " + formID + ", label = " + label );
+                //alert("clID = " + clID + ", phID = " + phID + ", pageName = " + pageName + ", formID = " + formID + ", label = " + label + ", formControl_ID = " + fcid);
 
-                if (!DoesFieldExist(label)) {
+
+                //if (!DoesFieldExist(label)) {
 
                     if (ui.draggable[0].localName == 'span') {
 
                         $.ajax({
                             type: "POST",
                             url: "ajax.aspx/AddControlToPagePlaceHolder",
-                            data: "{'controlList_ID':'" + clID + "','formID':'" + formID + "','placeholderName':'" + phID + "','formControl_ID':'','text':'','pageName':'" + pageName + "'}",
+                            data: "{'controlList_ID':'" + clID + "','formID':'" + formID + "','placeholderName':'" + phID + "','formControl_ID':'" + fcid + "','text':'','pageName':'" + pageName + "'}",
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (data) {
-                                alert("success. fcid = " + data.d);
-                                fcid = data.d;
-                                current.attr("fcid", fcid);
-
-                                if (ui.draggable.attr("ctype") == "TextBox") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='text' /><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate</div>");
-
-                                    BindCRUDEvents(current, ui.draggable.attr("clID"), null);
-                                }
-                                if (ui.draggable.attr("ctype") == "Multi-line") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><textarea rows='6' cols='25'></textarea><input type='button' class='remove' value='X'  ><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate</div>");
-
-                                    BindCRUDEvents(current, ui.draggable.attr("clID"), null);
-                                }
-                                else if (ui.draggable.attr("ctype") == "DropDownList") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><select><option value='-1'>select</option></select><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate</div>");
-
-                                    BindCRUDEvents(current, ui.draggable.attr("clID"), null);
-                                }
-                                else if (ui.draggable.attr("ctype") == "Group") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span>" + label + "<input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate<input type='button' class='btnCBGroup' value='Edit' id='btn_edit_" + ui.draggable.attr('clID') + "'></div>");
-
-                                    BindCRUDEvents(current, ui.draggable.attr("clID"), "mFormControlGroup");
-                                }
-                                else if (ui.draggable.attr("ctype") == "CheckboxList") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><div>" + label + "</div><input type='button'  class='remove' value='X'><input type='checkbox' id='chk" + clID + "' class='doValidate' checked >validate</div>");
-
-                                    BindCRUDEvents(current, ui.draggable.attr("clID"), null);
-                                }
-                                else if (ui.draggable.attr("ctype") == "Submit") {
-                                    current.append("<div class='set' fcid='" + fcid + "'><span>" + ui.draggable.text() + "</span><input type='button' value='Submit' /><input type='button' class='remove' value='X' ><input type='button' class='btnEdit' value='Edit' id='btn_edit_" + clID + "'>");
-
-                                    BindCRUDEvents(current, ui.draggable.attr("clID"), "mSubmit");
-                                }
+                                $("#ddlFormList").trigger("change");
                             },
                             error: function (msg) {
-                                alert('oops!');
+                                alert('add control fail!');
                             }
                         });
 
-                    }
+                    //}
 
 
 
@@ -573,7 +842,7 @@ function DragDropInit() {
             }
         });
 
-        $("#phColumn1, #phColumn2, #phBottom").sortable({
+        $(".sortable").sortable({
             stop: function (event, ui) {
 
                 fcidCollection = "";
@@ -728,8 +997,8 @@ function DialogInit(name, triggerClass) {
     //----------- Dialog Box Stuff
     var d = $("#" + name).dialog({
         autoOpen: false,
-        height: 430,
-        width: 790,
+        //height: 600,
+        width: 850,
         modal: true
     });
     d.parent().find('a').find('span').attr('class', 'ui-icon ui-icon-minus');
@@ -748,32 +1017,52 @@ function DialogInit(name, triggerClass) {
 
 }
 
-
 function createSet(element)
 {
-    return "<div id='" + element.AprimoFieldName + "' class='set' fcid='" + element.FormControl_ID + "' clid='" + element.ControlList_ID + "'><span>" + element.LabelName + "</span>" + createElement(element) + "</div>";
+    return "<div id='" + element.AprimoFieldName + "' class='set' fcid='" + element.FormControl_ID + "' clid='" + element.ControlList_ID + "'><span clid='" + element.ControlList_ID + "' fcid='" + element.FormControl_ID + "'>" + element.LabelName + "</span>" + createElement(element) + "</div>";  //class='draggable'
 }
 
 function createElement(element) {
 
+    var tabOrder = "";
     type = element.ElementType;
+    clID = element.ControlList_ID;
+    controlName = element.ControlName;
+
+    if (element.tabOrder != 'undefined')
+        tabOrder = element.TabOrder;
+
     validate = "";
+    var ret = "";
 
     if (element.Validate == "True")
         validate = "checked='true'";
+    
+    if (clID == 20) //Custom Field
+        ret = "<input  type='text' /><input type='button' class='btnEdit' value='Edit' fcid='" + element.FormControl_ID + "' hk='Customtrigger' />";
+    else if (type == "TextBox" && clID != 20) {
+        ret = "<input  type='text' />";
+    }
+    else if (type == "Multi-line" && clID != 20)
+        ret = "<textarea rows='6' cols='25'></textarea>";
+    else if (type == "DropDownList" && clID != 20)
+        ret = "<select ><option value='-1'>" + element.AprimoFieldName + "</option></select>";
+    else if (type == "Submit" && clID != 20)
+        ret = "<input  type='button' value='Submit' /><input type='button' class='btnEdit' value='Edit' >";
+    else if (type == "Group" && clID != 20)
+        ret = element.ControlName + "<input type='button' class='btnEdit' value='Edit' fcid='" + element.FormControl_ID + "' hk='CBtrigger' />";
+    else if (type == "CheckboxList" && clID != 20)
+        ret = element.ControlName + "CheckboxList";
 
-    if (type == "TextBox")
-        return "<input  type='text' /><input type='button' class='remove' value='X'><input type='checkbox' class='doValidate' " + validate + " >validate</div>";
-    else if (type == "Multi-line")
-        return "<textarea rows='6' cols='25'></textarea><input type='button' class='remove' value='X'><input type='checkbox' class='doValidate' " + validate + " >validate</div>";
-    else if (type == "DropDownList")
-        return "<select ><option value='-1'>" + element.AprimoFieldName + "</option></select><input type='button' class='remove' value='X'  ><input type='checkbox' class='doValidate' " + validate + " >validate</div>";
-    else if (type == "Submit") 
-        return "<input  type='button' value='Submit' /><input type='button' class='remove' value='X'  ><input type='button' class='btnEdit' value='Edit' ></div>";
-    else if (type == "Group") 
-        return element.ControlName + "<input type='button' class='remove' value='X'  ><input type='checkbox' class='doValidate' " + validate + " >validate<input type='button' class='btnEdit' value='Edit' fcid='" + element.FormControl_ID + "' hk='CBtrigger' >";
-    else if (type == "CheckboxList") 
-        return element.ControlName + "&nbsp;<input type='button' class='remove' value='X'  ><input type='checkbox' class='doValidate' " + validate + " >validate";
+    ret += "<table>" +
+	            "<tr>" +
+		            "<td><input type='button' class='remove' value='X'></td>" +
+		            "<td><input type='checkbox' class='doValidate' " + validate + " >validate</td>" +
+		            "<td>tab order<input type='text' class='tab-order' value='" + tabOrder + "' /></td>" +
+	            "</tr>" +
+            "</table>";
+
+    return ret;
 }
 
 function createHeader(headerName) {
@@ -793,7 +1082,7 @@ function createPlaceholders(placeholders) {
 }
 
 function createPlaceholder(element) {
-    return "<div id='" + element.ContainerID + "'></div>";
+    return "<div id='" + element.ContainerID + "' class='sortable'></div>";
 }
 
 function createPages(pages) {
@@ -811,8 +1100,15 @@ function createActions(actions) {
 
     var html = "";
 
-    for (i = 0; i < actions.length; i++)
-        html += "<tr><td>" + actions[i].ActionName + "</td><td><input class='removeAction' type='button' atid='" + actions[i].ControlAction_ID + "' fcgid='" + actions[i].FormControl_ID + "' value='X'></td></tr>";
+    for (i = 0; i < actions.length; i++) {
+        html += "<tr><td>" + actions[i].ActionName + "</td><td><input class='removeAction' type='button' atid='" + actions[i].ControlAction_ID + "' fcgid='" + actions[i].FormControl_ID + "' value='X'>"
+
+        if (actions[i].ActionName == "Send Data via Email") {
+            html += "<input type='button' value='Edit' id='btnEditActionParams' data-caid='" + actions[i].ControlAction_ID + "'>";
+        }
+    }
+
+    html += "</td></tr>";
 
     return html;
 }
@@ -823,6 +1119,16 @@ function createFCGItems(items) {
 
     for (i = 0; i < items.length; i++)
         html += "<tr><td>" + items[i].Text + "</td><td>" + items[i].Value + "</td><td><input class='removeFCGItem' type='button'  fcgid='" + items[i].FormControlGroup_ID + "' value='X'></td></tr>";
+
+    return html;
+}
+
+function createElementOptions(items) {
+
+    var html = "";
+
+    for (i = 0; i < items.length; i++)
+        html += "<tr><td>" + items[i].Text + "</td><td>" + items[i].Value + "</td><td><input class='removeElementOption' type='button'  coID='" + items[i].ControlOption_ID + "' value='X'></td></tr>";
 
     return html;
 }
@@ -876,3 +1182,48 @@ function FCGItemsRemoveInit() {
     });
 }
 
+function ElementOptionsRemoveInit() {
+
+    $(".removeElementOption").click(function () {
+
+        current = $(this);
+        coID = current.attr("coID");
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.aspx/RemoveElementOption",
+            data: "{'controlOption_ID':'" + coID + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                current.parent().closest('tr').remove();
+            },
+            error: function (msg) {
+                alert('Couldnt remove option!');
+            }
+        });
+
+    });
+}
+
+function htmlEncode(str)
+{
+    var str = String(str).replace("'", "&#039;");
+
+    return str;
+}
+
+function htmlDecode(str) {
+    var str = String(str).replace("&#039;", "'");
+
+    return str;
+}
+
+function isInt(val)
+{
+    var intRegex = /^\d+$/;
+    if (intRegex.test(val))
+        return val;
+    else
+        return 0;
+}

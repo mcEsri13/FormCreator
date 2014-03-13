@@ -80,9 +80,9 @@
     <Content Include="Consume.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="FormCreator.ascx" />
-    <Content Include="FormCreator.css" />
-    <Content Include="FormCreator_old.css" />
-    <Content Include="FormCreator.js" />
+    <Content Include="css\FormCreator.css" />
+    <Content Include="css\FormCreator_old.css" />
+    <Content Include="js\FormCreator.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -145,6 +145,7 @@
       <Name>Saml</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

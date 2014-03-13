@@ -8,10 +8,24 @@ body {
 #pnlFields,
 #divPreviewFormInfo,
 #phColumn1, 
-#phColumn2 {
+#phColumn2{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.collapse 
+{
+
+    float: right;
+    margin-bottom: 10px;
+}
+
+#divHiddenPreview {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display:none;
 }
 
 /* LOGIN */
@@ -23,6 +37,10 @@ body {
 
 #divlogIn input[type=button] {
   margin-left: 192px;
+}
+
+#divCustomDLL {
+    display:none;
 }
 
 #divCreateOrEdit,
@@ -75,14 +93,17 @@ body {
 	min-height: 500px;
 	overflow: scroll;
 }*/
+
 #pnlFields {
 	border: 1px solid #CCC !important;
-	min-height: 500px;
+	height: 500px;
 	padding-right: 10px;
 	overflow: scroll;
 	overflow-x: hidden;
 	width: 90% !important;	
 }
+
+
 #pnlFields .listItem.ui-draggable {
 	background: #DDD;
 	border-bottom: 1px solid #CCC;
@@ -97,6 +118,7 @@ body {
   cursor: move;
   padding: 5px 30px 5px 10px;  
 }
+
 
 #pnlFields .listItem.ui-draggable:hover {
   background-color: #ccc;
@@ -316,7 +338,7 @@ input[type="submit"]:hover {
   font-size: 14px;
   margin-top: 5px;
   padding: 2px;
-  width: 350px;
+  width: 250px;
 }
 
 .set .btnEdit {
@@ -348,4 +370,45 @@ input[type="submit"]:hover {
 .set .doValidate {
   float: left;
   margin: 10px 5px 0 5px;
+}
+
+.closeCustomField {
+    float:right;
+}
+
+.tab-order {
+    width: 25px;
+}
+
+#tblCustomDropdownOptions {
+    width: 100%;
+    border: 1px solid #CECECE;
+}
+
+#tblCustomDropdownOptions tr:nth-child(even) {
+    background-color: #cecece;
+}
+
+#tblCustomDropdownOptions td {
+    padding-left: 10px;
+    width:auto;
+}
+
+.removeElementOption {
+    float:right;
+}
+
+.ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix {
+    display:none;
+}
+
+.ui-dialog {
+    font-family: arial;
+    font-size: 16px;
+}
+
+.aprimoFields {
+    padding: 10px;
+    background-color: #cecece;
+    width: 98%;
 }

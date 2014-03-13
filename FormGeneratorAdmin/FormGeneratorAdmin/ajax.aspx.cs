@@ -43,6 +43,22 @@ namespace FormGeneratorAdmin
 
             data.UpdateRequiredByFormControl_ID(formControlID, ischecked);
         }
+        
+        [WebMethod]
+        public static void SaveMultipleActionParamsByID(string FormControl_ID, string ControlActionType_ID, string DelimData)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            data.SaveMultipleActionParamsByID(FormControl_ID, ControlActionType_ID, DelimData);
+        }
+        
+        [WebMethod]
+        public static void SetTabOrder(string formControlID, string tabOrder)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            data.SetTabOrder(formControlID, tabOrder);
+        }
 
         [WebMethod]
         public static string AddFormControlGroupItem(string formControl_ID, string text, string value, string formControlGroup_ID)
@@ -50,6 +66,27 @@ namespace FormGeneratorAdmin
             FormGeneratorData data = new FormGeneratorData();
 
             return GetJson(data.AddFormControlGroupItem(formControl_ID, text, value, formControlGroup_ID));
+        }
+
+        [WebMethod]
+        public static void SaveCustomFieldInfo(string formControl_ID, string customLabel, string customControlType, string aprimoColumn, string isSpecial)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            data.SaveCustomFieldInfo(formControl_ID, customLabel, customControlType, aprimoColumn, isSpecial);
+        }
+
+        [WebMethod]
+        public static string GetCustomFieldInfo(string formControl_ID)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            DataSet ds = data.GetCustomFieldInfo(formControl_ID);
+
+            ds.Tables[0].TableName = "formElements";
+            ds.Tables[1].TableName = "formControlOptions";
+
+            return JsonConvert.SerializeObject(ds, Formatting.Indented);
         }
 
         [WebMethod]
@@ -69,11 +106,11 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static void AddElementOption(string formControlID, string text, string value)
+        public static string AddElementOption(string formControl_ID, string text, string value)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            data.AddControlOption(formControlID, text, value);
+            return GetJson(data.AddControlOption(formControl_ID, text, value));
         }
 
         [WebMethod]
@@ -216,7 +253,7 @@ namespace FormGeneratorAdmin
         public static void RemoveElementOption(string controlOption_ID)
         {
             FormGeneratorData data = new FormGeneratorData();
-            data.RemoveControlOption(controlOption_ID);
+            data.RemoveElementOption(controlOption_ID);
         }
 
         [WebMethod]
@@ -260,6 +297,18 @@ namespace FormGeneratorAdmin
             FormGeneratorData data = new FormGeneratorData();
 
             return GetJson( data.GetCustomGroupInfoByFormControl_ID(formControl_ID));
+        }
+
+        [WebMethod]
+        public static string GetControlActionParametersByControlAction_ID(string ControlAction_ID)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            DataSet ds = data.GetControlActionParametersByControlAction_ID(ControlAction_ID);
+
+            ds.Tables[0].TableName = "ActionParams";
+
+            return JsonConvert.SerializeObject(ds, Formatting.Indented);
         }
 
         [WebMethod]

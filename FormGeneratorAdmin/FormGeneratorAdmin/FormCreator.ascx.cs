@@ -16,7 +16,6 @@ namespace FormGeneratorAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             //HttpCookie myCookie = new HttpCookie("IESRISESSIONID");
             //myCookie = Request.Cookies["IESRISESSIONID"];
 
@@ -29,6 +28,7 @@ namespace FormGeneratorAdmin
             //    FormGeneratorTools.BindObject(ddlActions, formData.GetControlActionTypes(), "Name", "ControlActionType_ID", "Select Action");
             //    FormGeneratorTools.BindObject(ddlLayout, formData.GetTemplates(), "friendlyname", "template_id", "Select Layout");
             //    FormGeneratorTools.BindObject(ddlStyle, formData.GetStyles(), "Name", "StyleType_ID", "Select Style");
+            //    FormGeneratorTools.BindObject(ddlControlTypes, formData.GetCustomizableControlTypes(), "Name", "ControlType_ID", "Select Control Type");
 
             //    //load controllists
             //    DataTable fields = formData.GetControls();
@@ -45,7 +45,7 @@ namespace FormGeneratorAdmin
             //        pnlFields.Controls.Add(span);
 
             //        i++;
-            //    }             
+            //    }
             //}
             //else
             //{
@@ -69,7 +69,7 @@ namespace FormGeneratorAdmin
 
             //        Response.Redirect(redirectUrl);
             //    }
-            //    else 
+            //    else
             //    {
             //        Session["HasChecked"] = null;
             //        Response.Write("Not Authorized");
@@ -77,12 +77,14 @@ namespace FormGeneratorAdmin
             //    }
             //}
 
+            // for local dev
             FormGeneratorData formData = new FormGeneratorData();
 
             FormGeneratorTools.BindObject(ddlFormList, formData.GetForms(), "Name", "Form_ID", "Select Form");
             FormGeneratorTools.BindObject(ddlActions, formData.GetControlActionTypes(), "Name", "ControlActionType_ID", "Select Action");
             FormGeneratorTools.BindObject(ddlLayout, formData.GetTemplates(), "friendlyname", "template_id", "Select Layout");
             FormGeneratorTools.BindObject(ddlStyle, formData.GetStyles(), "Name", "StyleType_ID", "Select Style");
+            FormGeneratorTools.BindObject(ddlControlTypes, formData.GetCustomizableControlTypes(), "Name", "ControlType_ID", "Select Control Type");
 
             //load controllists
             DataTable fields = formData.GetControls();
@@ -92,7 +94,7 @@ namespace FormGeneratorAdmin
                 HtmlGenericControl span = new HtmlGenericControl("span");
                 span.Attributes.Add("clID", fieldRow["ControlList_ID"].ToString());
                 span.Attributes.Add("ctype", fieldRow["ControlType"].ToString());
-                span.Attributes.Add("class", "listItem");
+                span.Attributes.Add("class", "listItem draggable");
                 span.InnerHtml = fieldRow["Name"].ToString();
 
 
