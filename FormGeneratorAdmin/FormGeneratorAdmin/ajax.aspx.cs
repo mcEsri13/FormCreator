@@ -59,6 +59,14 @@ namespace FormGeneratorAdmin
 
             data.SetTabOrder(formControlID, tabOrder);
         }
+        
+        [WebMethod]
+        public static void SaveSubmitText(string formControl_ID, string text)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            data.SaveSubmitText(formControl_ID, text);
+        }
 
         [WebMethod]
         public static string AddFormControlGroupItem(string formControl_ID, string text, string value, string formControlGroup_ID)
@@ -69,11 +77,11 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static void SaveCustomFieldInfo(string formControl_ID, string customLabel, string customControlType, string aprimoColumn, string isSpecial)
+        public static void SaveCustomFieldInfo(string formControl_ID, string customLabel, string customControlType, string aprimoColumn, string isSpecial, string customControlFunction_ID)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            data.SaveCustomFieldInfo(formControl_ID, customLabel, customControlType, aprimoColumn, isSpecial);
+            data.SaveCustomFieldInfo(formControl_ID, customLabel, customControlType, aprimoColumn, isSpecial, customControlFunction_ID);
         }
 
         [WebMethod]
@@ -111,6 +119,14 @@ namespace FormGeneratorAdmin
             FormGeneratorData data = new FormGeneratorData();
 
             return GetJson(data.AddControlOption(formControl_ID, text, value));
+        }
+
+        [WebMethod]
+        public static string SaveElementOption(string formControl_ID, string text, string value)
+        {
+            FormGeneratorData data = new FormGeneratorData();
+
+            return GetJson(data.SaveControlOption(formControl_ID, text, value));
         }
 
         [WebMethod]

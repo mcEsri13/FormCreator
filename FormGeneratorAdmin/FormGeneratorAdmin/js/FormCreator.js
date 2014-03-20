@@ -80,13 +80,14 @@ $(document).ready(function () {
         var fcid = $("#hidCustomFC_ID").val();
         var customLabel = $("#txtLabelName").val();
         var customControlType = $("#ddlControlTypes").val();
+        var customControlFunction_ID = $("#ddlCustomControlFunctions").val();
         var aprimoColumn = $("#txtCustomAprimoColumn").val();
         var isSpecial = $("#cbIsSpecial").is(":checked");
 
         $.ajax({
             type: "POST",
             url: "ajax.aspx/SaveCustomFieldInfo",
-            data: "{'formControl_ID':'" + fcid + "','customLabel':'" + customLabel + "','customControlType':'" + customControlType + "','aprimoColumn':'" + aprimoColumn + "','isSpecial':'" + String(isSpecial) + "'}",
+            data: "{'formControl_ID':'" + fcid + "','customLabel':'" + customLabel + "','customControlType':'" + customControlType + "','aprimoColumn':'" + aprimoColumn + "','isSpecial':'" + String(isSpecial) + "','customControlFunction_ID':'" + customControlFunction_ID + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
@@ -107,6 +108,28 @@ $(document).ready(function () {
             error: function (msg) {
 
                 alert("Couldnt save custom field info!");
+                return;
+            }
+        });
+    });
+
+    $("#btnSaveTNC").click(function () {
+
+        var fcid = $("#hidTNCFC_ID").val();
+        var url = $("#txtTNCURL").val();
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.aspx/SaveElementOption",
+            data: "{'formControl_ID':'" + fcid + "','text':'tnc_path','value':'" + url + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+            },
+            error: function (msg) {
+
+                alert("Couldnt save TNC info!");
                 return;
             }
         });
@@ -308,11 +331,21 @@ $(document).ready(function () {
 
     $("#ddlControlTypes").change(function () {
         var selected = $(this).val();
-        if (selected == "3" || selected == "1012" || selected == "1015") {
+        if (selected == "3" || selected == "1012" || selected == "1015") //dropdown, checkboxlist and radiobuttonlist
+        {
             $("#divCustomDLL").show();
         }
         else {
             $("#divCustomDLL").hide();
+        }
+
+        if (selected == "1") //textbox
+        {
+            $("#ddlCustomControlFunctions").show();
+        }
+        else {
+            $("#ddlCustomControlFunctions").hide();
+            $("#ddlCustomControlFunctions").val('-1');
         }
     });
 
@@ -410,6 +443,7 @@ $(document).ready(function () {
     DialogInit("mFormControlGroup", "btnCBGroup");
     DialogInit("mRadioGroup", "btnRGroup");
     DialogInit("mCustomField", "btnCustomField");
+    DialogInit("mTermsAndConditions", "btnTNC");
 
     $('.ui-dialog-titlebar').hide();
 
@@ -492,7 +526,7 @@ $(document).ready(function () {
                                     for (i = 0; i < j.ActionParams.length; i++) {
 
                                         var name = j.ActionParams[i].Name;
-                                        var val = j.ActionParams[i].Value;
+                                        var val = htmlDecode(j.ActionParams[i].Value);
 
                                         switch (name)
                                         {
@@ -581,13 +615,20 @@ $(document).ready(function () {
                                     var j = $.parseJSON(data.d);
 
                                     var typeID = j.formElements[0].CustomControlType;
+                                    var functionID = j.formElements[0].CustomControlFunction_ID;
                                     var label = j.formElements[0].CustomLabel;
                                     var aprimoColumn = j.formElements[0].AprimoColumn;
                                     var isSpecial = j.formElements[0].IsSpecial;
 
                                     $('#ddlControlTypes').val(typeID);
+                                    $('#ddlCustomControlFunctions').val(functionID);
                                     $('#txtLabelName').val(label);
                                     $('#txtCustomAprimoColumn').val(aprimoColumn);
+
+                                    if (typeID == '1')
+                                        $("#ddlCustomControlFunctions").show();
+                                    else
+                                        $("#ddlCustomControlFunctions").hide();
 
                                     if(isSpecial == true)
                                         $('#cbIsSpecial').attr('checked', true);
@@ -670,6 +711,23 @@ $(document).ready(function () {
                             if (clid == '13') {
                                 $("#mSubmit").dialog("open");
                                 $("#hidSetAction").val(fcid);
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "ajax.aspx/GetCustomFieldInfo",
+                                    data: "{'formControl_ID':'" + fcid + "'}",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data) {
+
+                                        var j = $.parseJSON(data.d);
+                                        var label = j.formElements[0].CustomLabel;
+                                        $('#txtSubmitText').val(label);
+                                    },
+                                    error: function (msg) {
+                                        alert('Could not get Info!');
+                                    }
+                                });
                             }
                             if (clid == '20') {
                                 $("#mCustomField").dialog("open");
@@ -678,6 +736,30 @@ $(document).ready(function () {
                             if (clid == '32' || clid == '1034' || clid == '1036') {
                                 $("#mFormControlGroup").dialog("open");
                                 $("#hidSetFC_ID").val(fcid);
+                            }
+                            if (clid == '2046') {
+                                $("#mTermsAndConditions").dialog("open");
+                                $("#hidTNCFC_ID").val(fcid);
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "ajax.aspx/GetElementOptionsByFormElement_ID",
+                                    data: "{'formcontrolID':'" + fcid + "'}",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data) {
+
+                                        var j = $.parseJSON(data.d);
+                                        var text = j[0].Text;
+                                        var value = j[0].Value;
+
+                                        if (text == "tnc_path" && value != null)
+                                            $("#txtTNCURL").val(value)
+                                    },
+                                    error: function (msg) {
+                                        alert('Could not get URL');
+                                    }
+                                });
                             }
                             $(".ui-widget-overlay").css("background", "#000");
                         });
@@ -729,6 +811,25 @@ $(document).ready(function () {
                             });
 
                         });
+
+                        $('#txtSubmitText').blur(function () {
+                            var text = $(this).val();
+                            var fcid = $("#hidSetAction").val();
+
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax.aspx/SaveSubmitText",
+                                data: "{'formControl_ID':'" + fcid + "','text':'" + text + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (data) {
+                                    $("#ddlFormList").trigger("change");
+                                },
+                                error: function (msg) {
+                                    alert('text not saved!');
+                                }
+                            });
+                        })
                     }
                 },
                 error: function (msg) {
@@ -753,8 +854,8 @@ $(document).ready(function () {
         //var caType = $("#ddlActions").val();
         var caType = '6';
         var fcid = $("#hidSetAction").val();
-        var delim = 'To|' + to + '^From|' + from + '^Subject|' + subject + '^CC|' + cc ;
-
+        var delim = 'To|' + htmlEncode(to) + '^From|' + htmlEncode(from) + '^Subject|' + htmlEncode(subject) + '^CC|' + htmlEncode(cc) ;
+        
 
         $.ajax({
             type: "POST",
@@ -1047,12 +1148,22 @@ function createElement(element) {
         ret = "<textarea rows='6' cols='25'></textarea>";
     else if (type == "DropDownList" && clID != 20)
         ret = "<select ><option value='-1'>" + element.AprimoFieldName + "</option></select>";
-    else if (type == "Submit" && clID != 20)
-        ret = "<input  type='button' value='Submit' /><input type='button' class='btnEdit' value='Edit' >";
+    else if (type == "Submit" && clID != 20) {
+        var text = "";
+
+        if (element.LabelName == null || element.LabelName == '')
+            text = 'Submit'
+        else
+            text = element.LabelName;
+
+        ret = "<input  type='button' value='" + text + "' /><input type='button' class='btnEdit' value='Edit' >";
+    }
     else if (type == "Group" && clID != 20)
         ret = element.ControlName + "<input type='button' class='btnEdit' value='Edit' fcid='" + element.FormControl_ID + "' hk='CBtrigger' />";
     else if (type == "CheckboxList" && clID != 20)
         ret = element.ControlName + "CheckboxList";
+    else if (type == "Checkbox" && clID != 20)
+        ret = element.ControlName + "Checkbox" + "<input type='button' class='btnEdit' value='Edit' fcid='" + element.FormControl_ID + "' hk='Customtrigger' />";
 
     ret += "<table>" +
 	            "<tr>" +

@@ -43,6 +43,10 @@ body {
     display:none;
 }
 
+#ddlCustomControlFunctions {
+    display:none;
+}
+
 #divCreateOrEdit,
 #divCreateForm,
 #divPreviewFormInfo,
@@ -51,6 +55,7 @@ body {
 #mRadioGroup, 
 #mCustomDropdown, 
 #mSubmit, 
+#mTermsAndConditions, 
 #divReturnURL
 {
   display:none;
@@ -61,6 +66,10 @@ body {
 #divFormPreview {}
 
 #divEditing {}
+
+#txtTNCURL {
+    width:600px;
+}
 
 
 

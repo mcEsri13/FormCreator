@@ -119,9 +119,17 @@
         <br />
         <input type="button" class="closeDialog" value="Done" />
     </div><!--end Radio group-->
+    <div id="mTermsAndConditions">
+        <input type="hidden" id="hidTNCFC_ID" />
+        <p>Terms and Conditions Edit!</p>
+        URL&nbsp;<input type="text" id="txtTNCURL" />
+        <br />
+        <input type="button" id="btnSaveTNC" class="closeDialog" value="Done" />
+    </div><!--end Terms and Conditions-->
     <div id="mSubmit">
         <input type="hidden" id="hidSetAction" />
         <p>Submit Edit!</p>
+        Text&nbsp;<asp:TextBox ID="txtSubmitText" runat="server" ClientIDMode="Static"></asp:TextBox><br />
         <asp:DropDownList ID="ddlActions" runat="server" ClientIDMode="Static">
         </asp:DropDownList>
         <input id="btnAddAction" type="button" value="Add" /><br />
@@ -169,7 +177,8 @@
 
             Field<br />
             <asp:DropDownList ID="ddlControlTypes" runat="server" ClientIDMode="Static"></asp:DropDownList>
-            &nbsp;&nbsp;<input type="checkbox" id="cbIsSpecial" />Special Field
+            &nbsp;&nbsp;<input type="checkbox" id="cbIsSpecial" />Special Field<br />
+            <asp:DropDownList ID="ddlCustomControlFunctions" runat="server" ClientIDMode="Static"></asp:DropDownList>
             <br />
             <br />
         <div class="aprimoFields">

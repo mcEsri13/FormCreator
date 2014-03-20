@@ -49,6 +49,15 @@ namespace FormGeneratorAdmin {
         protected global::System.Web.UI.WebControls.Panel pnlFields;
         
         /// <summary>
+        /// txtSubmitText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSubmitText;
+        
+        /// <summary>
         /// ddlActions control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace FormGeneratorAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlControlTypes;
+        
+        /// <summary>
+        /// ddlCustomControlFunctions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomControlFunctions;
         
         /// <summary>
         /// txtLabelName control.

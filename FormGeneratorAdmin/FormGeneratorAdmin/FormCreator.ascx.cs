@@ -85,6 +85,7 @@ namespace FormGeneratorAdmin
             FormGeneratorTools.BindObject(ddlLayout, formData.GetTemplates(), "friendlyname", "template_id", "Select Layout");
             FormGeneratorTools.BindObject(ddlStyle, formData.GetStyles(), "Name", "StyleType_ID", "Select Style");
             FormGeneratorTools.BindObject(ddlControlTypes, formData.GetCustomizableControlTypes(), "Name", "ControlType_ID", "Select Control Type");
+            FormGeneratorTools.BindObject(ddlCustomControlFunctions, formData.GetCustomControlFunctions(), "Name", "CustomControlFunction_ID", "Select Function (optional)");
 
             //load controllists
             DataTable fields = formData.GetControls();

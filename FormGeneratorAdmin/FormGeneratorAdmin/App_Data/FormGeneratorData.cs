@@ -184,10 +184,20 @@ namespace FormGeneratorAdmin
                 return null;
         }
 
-        public DataTable SaveCustomFieldInfo(string FormControl_ID, string CustomLabel, string CustomControlType, string AprimoColumn, string isSpecial)
+        public DataTable GetCustomControlFunctions()
         {
-            String[] paramNames = { "FormControl_ID", "CustomLabel", "CustomControlType", "AprimoColumn", "IsSpecial" };
-            Object[] paramValues = { FormControl_ID, CustomLabel, CustomControlType, AprimoColumn, isSpecial };
+            DataSet ds = SQL_SP_Exec("[spr_GetCustomControlFunctions]", con, null, null);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
+        public DataTable SaveCustomFieldInfo(string FormControl_ID, string CustomLabel, string CustomControlType, string AprimoColumn, string isSpecial, string customControlFunction_ID)
+        {
+            String[] paramNames = { "FormControl_ID", "CustomLabel", "CustomControlType", "AprimoColumn", "IsSpecial", "CustomControlFunction_ID" };
+            Object[] paramValues = { FormControl_ID, CustomLabel, CustomControlType, AprimoColumn, isSpecial, customControlFunction_ID };
 
             DataSet ds = SQL_SP_Exec("[spr_SaveCustomFieldInfo]", con, paramNames, paramValues);
 
@@ -573,6 +583,14 @@ namespace FormGeneratorAdmin
             DataSet ds = SQL_SP_Exec("[spr_SetTabOrder]", con, paramNames, paramValues);
         }
 
+        public void SaveSubmitText(string FormControl_ID, string text)
+        {
+            String[] paramNames = { "FormControl_ID", "Text" };
+            Object[] paramValues = { FormControl_ID, text };
+
+            DataSet ds = SQL_SP_Exec("[spr_SaveSubmitText]", con, paramNames, paramValues);
+        }
+
         public void UpdateECAS(string Form_ID, bool value)
         {
             String[] paramNames = { "Form_ID", "Value" };
@@ -639,6 +657,19 @@ namespace FormGeneratorAdmin
             Object[] paramValues = { FormControl_ID, text, value };
 
             DataSet ds = SQL_SP_Exec("[spr_AddControlOption]", con, paramNames, paramValues);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
+        public DataTable SaveControlOption(string FormControl_ID, string text, string value)
+        {
+            String[] paramNames = { "FormControl_ID", "Text", "Value" };
+            Object[] paramValues = { FormControl_ID, text, value };
+
+            DataSet ds = SQL_SP_Exec("[spr_SaveControlOption]", con, paramNames, paramValues);
 
             if (ds.Tables.Count > 0)
                 return ds.Tables[0];
