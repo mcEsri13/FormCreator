@@ -1,5 +1,6 @@
 ﻿
 $(document).ready(function () {
+
     //Textboxes
     var txtFormName         = $("#txtFormName");
     var txtSitecoreID       = $("#txtSitecoreID");
@@ -68,6 +69,8 @@ $(document).ready(function () {
 
                 if (j[0].Admin_ID != null)
                     colapseAllExcept("divCreateOrEdit");
+                else
+                    alert('wrong credentials.');
             },
             error: function (msg) {
                 alert(msg);
@@ -670,7 +673,7 @@ $(document).ready(function () {
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (data) {
-                                    current.parent().remove();
+                                    current.parents().eq(4).remove();
                                 },
                                 error: function (msg) {
                                     alert('failed to remove element!');
@@ -877,6 +880,8 @@ $(document).ready(function () {
         $('#txtSubject').val('');
         $('#txtCC').val('');
     });
+
+    document.getElementById('txtUsername').focus();
        
 });
 
@@ -1169,7 +1174,7 @@ function createElement(element) {
 	            "<tr>" +
 		            "<td><input type='button' class='remove' value='X'></td>" +
 		            "<td><input type='checkbox' class='doValidate' " + validate + " >validate</td>" +
-		            "<td>tab order<input type='text' class='tab-order' value='" + tabOrder + "' /></td>" +
+		            "<td>tab order<input type='text' class='tab-order' value='" + (tabOrder == null ? 0 : tabOrder) + "' /></td>" +
 	            "</tr>" +
             "</table>";
 
