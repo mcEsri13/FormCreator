@@ -21,6 +21,7 @@
 </div>
 <div id="divCreateForm">
     <input type="hidden" id="hidFormID" />
+    <span>Form ID</span><input type="text" id="txtFormID_edit" /><br />
     <span>Form Name</span><input type="text" id="txtFormName" /><br />
     <span>Sitecore ID</span><input type="text" id="txtSitecoreID" /><br />    
     <span>Tracking Campaign</span><input type="text" id="txtTrackingCampaign" /><br />
@@ -28,6 +29,7 @@
     <span>Tracking Source</span><input type="text" id="txtTrackingSource" /><br />  
     <span>Aprimo ID</span><input type="text" id="txtAprimoID" /><br />  
     <span>Aprimo Subject</span><input type="text" id="txtAprimoSubject" /><br />  
+    <span>Confirmation URL</span><input type="text" id="txtConfirmationURL" /><br />  
 
     <span>Header</span><input type="text" id="txtHeader" /><br />  
     <asp:DropDownList ID="ddlLayout" runat="server" ClientIDMode="Static">
@@ -40,6 +42,7 @@
 <div id="divPreviewFormInfo">
         <asp:DropDownList ID="ddlFormList" runat="server" ClientIDMode="Static">
         </asp:DropDownList><br />
+        <span>Form ID</span><div id="divFormID"></div><br />
         <span>Form Name</span><div id="divFormName"></div><br />
         <span>Sitecore ID</span><div id="divSCID"></div><br />
         <span>Date Modified</span><div id="divDateCreated"></div><br />
@@ -50,6 +53,7 @@
 
         <span>Aprimo ID</span><div id="divAprimoID"></div><br />
         <span>Aprimo Subject</span><div id="divAprimoSubject"></div><br />
+        <span>Confirmation URL</span><div id="divConfirmationURL"></div><br />
 
         <span>Header</span><div id="divHeader"></div><br />
         <span>Template</span><div id="divTemplate"></div><br />
@@ -216,11 +220,16 @@
             </table>
             <br />            
             <table id="tblCustomDropdownOptions">
-                <tr>
-                    <th>Text</th>
-                    <th>Value</th>
-                    <th>Remove</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Text</th>
+                        <th>Value</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody class='sortableOption'>
+
+                </tbody>
             </table>
 
         </div>

@@ -3,6 +3,7 @@ $(document).ready(function () {
 
     //Textboxes
     var txtFormName         = $("#txtFormName");
+    var txtFormID_edit      = $("#txtFormID_edit");
     var txtSitecoreID       = $("#txtSitecoreID");
     var txtDateCreated      = $("#txtDateCreated");
     var txtTrackingCampaign = $("#txtTrackingCampaign");
@@ -13,8 +14,10 @@ $(document).ready(function () {
     var txtAprimoSubject    = $("#txtAprimoSubject");
     var txtUsername         = $("#txtUsername");
     var txtPassword         = $("#txtPassword");
+    var txtConfirmationURL  = $("#txtConfirmationURL");
 
     //Labels
+    var divFormID           = $("#divFormID");
     var divFormName         = $("#divFormName");
     var divSCID             = $("#divSCID");
     var divDateCreated      = $("#divDateCreated");
@@ -26,6 +29,7 @@ $(document).ready(function () {
     var divHeader           = $("#divHeader");
     var divTemplate         = $("#divTemplate");
     var divStyle            = $("#divStyle");
+    var divConfirmationURL  = $("#divConfirmationURL");
 
     //Modal
     var hiddenModalForm     = $("#hiddenModalForm");
@@ -102,7 +106,7 @@ $(document).ready(function () {
                 $("#ddlControlTypes").val("-1");
                 $("#txtCustomAprimoColumn").val("");
 
-                $("#tblCustomDropdownOptions").empty();
+                $("#tblCustomDropdownOptions tbody").empty();
 
                 $("#divCustomDLL").hide();
 
@@ -154,6 +158,10 @@ $(document).ready(function () {
 
     $("#btnEditFormInfo").click(function () {
 
+        txtFormID_edit.val(divFormID.text())
+
+        $(txtFormID_edit).attr('disabled', 'disabled');
+
         txtFormName.val(divFormName.text());
         txtSitecoreID.val(divSCID.text());
         txtDateCreated.val(divDateCreated.text());
@@ -161,8 +169,9 @@ $(document).ready(function () {
         txtTrackingForm.val(divTrackingForm.text());
         txtTrackingSource.val(divTrackingSource.text());
         txtHeader.val(divHeader.text());
+        txtConfirmationURL.val(divConfirmationURL.text());
 
-        $txtAprimoID.val(divAprimoID.text());
+        txtAprimoID.val(divAprimoID.text());
         txtAprimoSubject.val(divAprimoSubject.text());
 
         $("#ddlLayout option").filter(function () {
@@ -354,14 +363,16 @@ $(document).ready(function () {
 
     $("#btnContinue").click(function () {
 
+        var formID = $("#hidFormID").val();
         var formName = htmlEncode(txtFormName.val());
         var sitecoreID = htmlEncode(txtSitecoreID.val());
         var campaign = htmlEncode(txtTrackingCampaign.val());
         var source = htmlEncode(txtTrackingSource.val());
         var tform = htmlEncode(txtTrackingForm.val());
 
-        var aprimoID = htmlEncode($txtAprimoID.val());
+        var aprimoID = htmlEncode(txtAprimoID.val());
         var aprimoSubject = htmlEncode(txtAprimoSubject.val());
+        var confirmationURL = htmlEncode(txtConfirmationURL.val());
 
         var header = htmlEncode(txtHeader.val());
         var templateID = $("#ddlLayout").val();
@@ -370,7 +381,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "ajax.aspx/AddForm",
-            data: "{'formName':'" + formName + "', 'sitecoreID':'" + sitecoreID + "', 'trackingCampaign':'" + campaign + "', 'trackingSource':'" + source + "', 'trackingForm':'" + tform + "', 'header':'" + header + "', 'templateID':'" + templateID + "', 'styleID':'" + styleID + "', 'aprimoID':'" + aprimoID + "', 'aprimoSubject':'" + aprimoSubject + "'}",
+            data: "{'formID':'" + formID + "','formName':'" + formName + "', 'sitecoreID':'" + sitecoreID + "', 'trackingCampaign':'" + campaign + "', 'trackingSource':'" + source + "', 'trackingForm':'" + tform + "', 'header':'" + header + "', 'templateID':'" + templateID + "', 'styleID':'" + styleID + "', 'aprimoID':'" + aprimoID + "', 'aprimoSubject':'" + aprimoSubject + "', 'confirmationURL':'" + confirmationURL + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
@@ -398,7 +409,7 @@ $(document).ready(function () {
                         $('#ddlFormList').val(j[0].Form_ID)
                     }
 
-
+                    divFormID.text(j[0].Form_ID);
                     divFormName.text(j[0].Name);
                     divSCID.text(j[0].ItemID);
                     divDateCreated.text(j[0].ModificationDate);
@@ -409,6 +420,7 @@ $(document).ready(function () {
                     
                     divAprimoID.text(j[0].Aprimo_ID);
                     divAprimoSubject.text(j[0].Aprimo_Subject);
+                    divConfirmationURL.text(j[0].ConfirmationURL);
 
                     divHeader.text(j[0].Header);
                     divTemplate.text(j[0].TemplateName);
@@ -421,8 +433,9 @@ $(document).ready(function () {
                     txtTrackingCampaign.val("");
                     txtTrackingForm.val("");
                     txtTrackingSource.val("");
-                    $txtAprimoID.val("");
+                    txtAprimoID.val("");
                     txtAprimoSubject.val("");
+                    txtConfirmationURL.val("");
                     $("#hidFormID").val("");
                     txtHeader.val("");
                     $("#ddlLayout").val("-1");
@@ -473,7 +486,8 @@ $(document).ready(function () {
                         $("#divEditForm").show();
 
                         $('#ddlFormList').val(j.formData[0].Form_ID)
-
+                        
+                        divFormID.text(htmlDecode(j.formData[0].Form_ID));
                         divFormName.text(htmlDecode(j.formData[0].Name));
                         divSCID.text(htmlDecode(j.formData[0].ItemID));
                         divDateCreated.text(htmlDecode(j.formData[0].ModificationDate));
@@ -484,6 +498,7 @@ $(document).ready(function () {
 
                         divAprimoID.text(htmlDecode(j.formData[0].Aprimo_ID));
                         divAprimoSubject.text(htmlDecode(j.formData[0].Aprimo_Subject));
+                        divConfirmationURL.text(htmlDecode(j.formData[0].ConfirmationURL));
 
                         divHeader.text(htmlDecode(j.formData[0].Header));
                         divTemplate.text(j.formData[0].TemplateName);
@@ -638,8 +653,8 @@ $(document).ready(function () {
                                     else
                                         $('#cbIsSpecial').attr('checked', false);
 
-                                    $("#tblCustomDropdownOptions").empty();
-                                    $("#tblCustomDropdownOptions").append(createElementOptions(j.formControlOptions));
+                                    $("#tblCustomDropdownOptions tbody").empty();
+                                    $("#tblCustomDropdownOptions tbody").append(createElementOptions(j.formControlOptions));
 
                                     //$('#mCustomField').css('height', 'auto');
 
@@ -975,6 +990,34 @@ function DragDropInit() {
 
             }
         });
+
+        $(".sortableOption").sortable({
+            stop: function (event, ui) {
+
+                coIDCollection = "";
+
+                $("#tblCustomDropdownOptions tbody tr").each(function () {
+                    coIDCollection += $(this).find("input").attr("coID") + ",";
+                });
+
+                coIDCollection = coIDCollection.slice(0, -1)
+
+                $.ajax({
+                    type: "POST",
+                    url: "ajax.aspx/SetElementOptionOrder",
+                    data: "{'delimitedIds':'" + coIDCollection + "','delimiter':','}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                    },
+                    error: function (msg) {
+                        alert('sort fail.');
+                    }
+                });
+
+            }
+        });
     });
 
 }
@@ -1243,7 +1286,7 @@ function createElementOptions(items) {
 
     var html = "";
 
-    for (i = 0; i < items.length; i++)
+    for (var i = 0, len=items.length; i < len; i++)
         html += "<tr><td>" + items[i].Text + "</td><td>" + items[i].Value + "</td><td><input class='removeElementOption' type='button'  coID='" + items[i].ControlOption_ID + "' value='X'></td></tr>";
 
     return html;

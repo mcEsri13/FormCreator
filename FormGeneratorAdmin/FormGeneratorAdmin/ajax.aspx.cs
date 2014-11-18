@@ -202,6 +202,8 @@ namespace FormGeneratorAdmin
             ds.Tables[5].TableName = "elementActions";
             ds.Tables[6].TableName = "formActions";
             ds.Tables[7].TableName = "elementBehaviors";
+            ds.Tables[8].TableName = "CustomControlOptions";
+            ds.Tables[9].TableName = "LookupData";
 
             return JsonConvert.SerializeObject(ds, Formatting.Indented);
         }
@@ -217,11 +219,11 @@ namespace FormGeneratorAdmin
         }
 
         [WebMethod]
-        public static string AddForm(string formName, string sitecoreID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID, string aprimoID, string aprimoSubject)
+        public static string AddForm(string formID, string formName, string sitecoreID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID, string aprimoID, string aprimoSubject, string confirmationURL)
         {
             FormGeneratorData data = new FormGeneratorData();
 
-            DataTable dtResult = data.AddForm(formName, sitecoreID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID, aprimoID, aprimoSubject);
+            DataTable dtResult = data.AddForm(formID, formName, sitecoreID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID, aprimoID, aprimoSubject, confirmationURL);
 
             return GetJson(dtResult);
         }

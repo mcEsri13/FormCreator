@@ -29,6 +29,7 @@ namespace FormGeneratorAdmin
             //    FormGeneratorTools.BindObject(ddlLayout, formData.GetTemplates(), "friendlyname", "template_id", "Select Layout");
             //    FormGeneratorTools.BindObject(ddlStyle, formData.GetStyles(), "Name", "StyleType_ID", "Select Style");
             //    FormGeneratorTools.BindObject(ddlControlTypes, formData.GetCustomizableControlTypes(), "Name", "ControlType_ID", "Select Control Type");
+            //    FormGeneratorTools.BindObject(ddlCustomControlFunctions, formData.GetCustomControlFunctions(), "Name", "CustomControlFunction_ID", "Select Function (optional)");
 
             //    //load controllists
             //    DataTable fields = formData.GetControls();
@@ -38,7 +39,7 @@ namespace FormGeneratorAdmin
             //        HtmlGenericControl span = new HtmlGenericControl("span");
             //        span.Attributes.Add("clID", fieldRow["ControlList_ID"].ToString());
             //        span.Attributes.Add("ctype", fieldRow["ControlType"].ToString());
-            //        span.Attributes.Add("class", "listItem");
+            //        span.Attributes.Add("class", "listItem draggable");
             //        span.InnerHtml = fieldRow["Name"].ToString();
 
 
@@ -77,7 +78,7 @@ namespace FormGeneratorAdmin
             //    }
             //}
 
-            // for local dev
+            // -------------------------------------------------------------------for local dev
             FormGeneratorData formData = new FormGeneratorData();
 
             FormGeneratorTools.BindObject(ddlFormList, formData.GetForms(), "Name", "Form_ID", "Select Form");
@@ -102,7 +103,8 @@ namespace FormGeneratorAdmin
                 pnlFields.Controls.Add(span);
 
                 i++;
-            }   
+            } 
+            // -------------------------------------------------------------------for local dev
 
         }
 

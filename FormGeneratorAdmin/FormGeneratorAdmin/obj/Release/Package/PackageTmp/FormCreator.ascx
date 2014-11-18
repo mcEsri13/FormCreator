@@ -21,6 +21,7 @@
 </div>
 <div id="divCreateForm">
     <input type="hidden" id="hidFormID" />
+    <span>Form ID</span><input type="text" id="txtFormID_edit" /><br />
     <span>Form Name</span><input type="text" id="txtFormName" /><br />
     <span>Sitecore ID</span><input type="text" id="txtSitecoreID" /><br />    
     <span>Tracking Campaign</span><input type="text" id="txtTrackingCampaign" /><br />
@@ -28,6 +29,7 @@
     <span>Tracking Source</span><input type="text" id="txtTrackingSource" /><br />  
     <span>Aprimo ID</span><input type="text" id="txtAprimoID" /><br />  
     <span>Aprimo Subject</span><input type="text" id="txtAprimoSubject" /><br />  
+    <span>Confirmation URL</span><input type="text" id="txtConfirmationURL" /><br />  
 
     <span>Header</span><input type="text" id="txtHeader" /><br />  
     <asp:DropDownList ID="ddlLayout" runat="server" ClientIDMode="Static">
@@ -40,6 +42,7 @@
 <div id="divPreviewFormInfo">
         <asp:DropDownList ID="ddlFormList" runat="server" ClientIDMode="Static">
         </asp:DropDownList><br />
+        <span>Form ID</span><div id="divFormID"></div><br />
         <span>Form Name</span><div id="divFormName"></div><br />
         <span>Sitecore ID</span><div id="divSCID"></div><br />
         <span>Date Modified</span><div id="divDateCreated"></div><br />
@@ -50,6 +53,7 @@
 
         <span>Aprimo ID</span><div id="divAprimoID"></div><br />
         <span>Aprimo Subject</span><div id="divAprimoSubject"></div><br />
+        <span>Confirmation URL</span><div id="divConfirmationURL"></div><br />
 
         <span>Header</span><div id="divHeader"></div><br />
         <span>Template</span><div id="divTemplate"></div><br />
@@ -119,9 +123,17 @@
         <br />
         <input type="button" class="closeDialog" value="Done" />
     </div><!--end Radio group-->
+    <div id="mTermsAndConditions">
+        <input type="hidden" id="hidTNCFC_ID" />
+        <p>Terms and Conditions Edit!</p>
+        URL&nbsp;<input type="text" id="txtTNCURL" />
+        <br />
+        <input type="button" id="btnSaveTNC" class="closeDialog" value="Done" />
+    </div><!--end Terms and Conditions-->
     <div id="mSubmit">
         <input type="hidden" id="hidSetAction" />
         <p>Submit Edit!</p>
+        Text&nbsp;<asp:TextBox ID="txtSubmitText" runat="server" ClientIDMode="Static"></asp:TextBox><br />
         <asp:DropDownList ID="ddlActions" runat="server" ClientIDMode="Static">
         </asp:DropDownList>
         <input id="btnAddAction" type="button" value="Add" /><br />
@@ -135,6 +147,30 @@
                 <th>Remove</th>
             </tr>
         </table><br />
+        <div id="divEmailDetails">
+            <table id="tblEmailDetails" class="defaultTable">
+                <tr>
+                    <td>To</td>
+                    <td><input id='txtTo' type='text' /></td>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <td><input id='txtFrom' type='text' /></td>
+                </tr>
+                <tr>
+                    <td>Subject</td>
+                    <td><input id='txtSubject' type='text' /></td>
+                </tr>
+                <tr>
+                    <td>CC</td>
+                    <td><input id='txtCC' type='text' /></td>
+                </tr>
+                <tr>
+                    <td><input id='btnSaveCustomEmail' type='button' value='Save' /></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
         <input type="button" class="closeDialog" value="Done" />
     </div><!--end checkbox group-->
     <div id="mCustomField">
@@ -145,7 +181,8 @@
 
             Field<br />
             <asp:DropDownList ID="ddlControlTypes" runat="server" ClientIDMode="Static"></asp:DropDownList>
-            &nbsp;&nbsp;<input type="checkbox" id="cbIsSpecial" />Special Field
+            &nbsp;&nbsp;<input type="checkbox" id="cbIsSpecial" />Special Field<br />
+            <asp:DropDownList ID="ddlCustomControlFunctions" runat="server" ClientIDMode="Static"></asp:DropDownList>
             <br />
             <br />
         <div class="aprimoFields">
@@ -183,11 +220,16 @@
             </table>
             <br />            
             <table id="tblCustomDropdownOptions">
-                <tr>
-                    <th>Text</th>
-                    <th>Value</th>
-                    <th>Remove</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Text</th>
+                        <th>Value</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody class='sortableOption'>
+
+                </tbody>
             </table>
 
         </div>

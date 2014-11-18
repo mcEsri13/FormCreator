@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Net.Mail;
 
 namespace FormGeneratorAdmin
 {
@@ -43,9 +44,36 @@ namespace FormGeneratorAdmin
                 for (int i = 0; i < paramNames.Length; i++)
                     cmd.Parameters.Add(new SqlParameter(paramNames[i], paramValues[i]));
 
-            con.Open();
-            da.Fill(ds);
-            con.Close();
+            try
+            {
+                con.Open();
+                da.Fill(ds);
+                con.Close();
+            }
+            catch(Exception e)
+            {
+                string[] errorGroup = ConfigurationManager.AppSettings["FormGeneratorErrorGroup"].ToString().Split(',');
+                System.Net.Mail.MailMessage errorMail = new System.Net.Mail.MailMessage();
+
+                errorMail.IsBodyHtml = true;
+                errorMail.Body = e.ToString();
+                errorMail.From = new MailAddress("FGAdminError@esri.com");
+                errorMail.Subject = e.Message;
+
+                foreach (string emailMember in errorGroup)
+                {
+                    errorMail.To.Add(emailMember);
+                }
+
+                System.Net.Mail.SmtpClient emailClient = new SmtpClient("SMTP.esri.com", 25);
+
+                try
+                {
+                    emailClient.Send(errorMail);
+                }
+                catch (Exception)
+                { }            
+            }
 
             return ds;
         }
@@ -86,10 +114,10 @@ namespace FormGeneratorAdmin
             DataSet ds = SQL_SP_Exec("[spr_LogAction]", con, paramNames, paramValues);
         }
 
-        public DataTable AddForm(string name, string itemID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID, string aprimoID, string aprimoSubject)
+        public DataTable AddForm(string formID, string name, string itemID, string trackingCampaign, string trackingSource, string trackingForm, string header, string templateID, string styleID, string aprimoID, string aprimoSubject, string confirmationURL)
         {
-            String[] paramNames = { "Name", "ItemID", "TrackingCampaign", "TrackingSource", "TrackingForm", "Header", "TemplateID", "StyleID", "AprimoID", "AprimoSubject" };
-            Object[] paramValues = { name, itemID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID, aprimoID, aprimoSubject };
+            String[] paramNames = { "Form_ID", "Name", "ItemID", "TrackingCampaign", "TrackingSource", "TrackingForm", "Header", "TemplateID", "StyleID", "AprimoID", "AprimoSubject", "ConfirmationURL" };
+            Object[] paramValues = { formID, name, itemID, trackingCampaign, trackingSource, trackingForm, header, templateID, styleID, aprimoID, aprimoSubject, confirmationURL };
 
             DataSet ds = SQL_SP_Exec("[spr_AddForm]", con, paramNames, paramValues);
 
@@ -780,7 +808,7 @@ namespace FormGeneratorAdmin
 
         public void SetControlOptionOrder(string delimitedIDs, string delimiter)
         {
-            String[] paramNames = { "DelimitedFormControl_IDs", "Delimiter" };
+            String[] paramNames = { "DelimitedControlOption_IDs", "Delimiter" };
             Object[] paramValues = { delimitedIDs, delimiter };
 
             DataSet ds = SQL_SP_Exec("[spr_SetControlOptionOrder]", con, paramNames, paramValues);

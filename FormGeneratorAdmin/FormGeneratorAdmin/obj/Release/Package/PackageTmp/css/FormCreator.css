@@ -43,6 +43,10 @@ body {
     display:none;
 }
 
+#ddlCustomControlFunctions {
+    display:none;
+}
+
 #divCreateOrEdit,
 #divCreateForm,
 #divPreviewFormInfo,
@@ -51,6 +55,7 @@ body {
 #mRadioGroup, 
 #mCustomDropdown, 
 #mSubmit, 
+#mTermsAndConditions, 
 #divReturnURL
 {
   display:none;
@@ -61,6 +66,10 @@ body {
 #divFormPreview {}
 
 #divEditing {}
+
+#txtTNCURL {
+    width:600px;
+}
 
 
 
@@ -140,13 +149,13 @@ body {
 	height: 100% !important;
 	min-height: 300px;
 	padding: 15px;
-	width: 50% !important;
+	width: 40% !important;
 }
 #phBottom {
 	border: 1px solid #CCC !important;
 	float: left;
 	height: 100% !important;
-	min-height: 200px;
+	min-height: 100px;
 	width: 100% !important;
 }
 
@@ -272,6 +281,7 @@ input[type="submit"]:hover {
   float: left;
   position: relative;
   min-width: 1000px;
+  margin-bottom: 20px;
 }
 
 /* Renderer - Header */
@@ -412,3 +422,16 @@ input[type="submit"]:hover {
     background-color: #cecece;
     width: 98%;
 }
+
+.defaultTable {
+
+
+}
+
+#divEmailDetails {
+    display:none;
+}
+
+    #divEmailDetails input[type=text] {
+        width: 400px;
+    }
